@@ -97,8 +97,6 @@ class StaffViewSet(viewsets.ModelViewSet):
                 processing_staffs = ProcessingStaff.objects.all()
                 processing_count = processing_staffs.count()
                 winning_rate = processing_count / self.get_queryset().count() * 100
-                if processing_count == 0:
-                    winning_rate = 100
 
                 # 验证是否已经参加抽奖
                 try:

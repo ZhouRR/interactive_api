@@ -54,6 +54,7 @@ class ActivityViewSet(viewsets.ModelViewSet):
                 activity.processing = request.data['processing']
             else:
                 activity.processing = False
+            activity.prize = request.data['prize']
 
             activity_serializer = self.get_serializer(activity, data=activity_serializer.data)
             activity_serializer.is_valid(raise_exception=True)

@@ -30,6 +30,17 @@ class Activity(models.Model):
     activity_name = models.CharField(max_length=100, blank=True, default='')
     activity_memo = models.CharField(max_length=200, blank=True, default='')
     processing = models.BooleanField(default=False)
+    prize = models.CharField(max_length=100, blank=True, default='')
+
+    class Meta:
+        ordering = ('created',)
+
+
+class Prize(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    prize_id = models.CharField(max_length=3, blank=False, default='000', primary_key=True)
+    prize_name = models.CharField(max_length=100, blank=True, default='')
+    prize_memo = models.CharField(max_length=200, blank=True, default='')
 
     class Meta:
         ordering = ('created',)

@@ -32,4 +32,10 @@ class ProcessingStaffSerializer(serializers.ModelSerializer):
 class ActivitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Activity
-        fields = ('created', 'activity_id', 'activity_name', 'activity_memo', 'processing')
+        fields = ('created', 'activity_id', 'activity_name', 'activity_memo', 'processing', 'prize')
+
+
+class PrizeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Activity
+        fields = ('created', 'prize_id', 'prize_name', 'prize_memo')
