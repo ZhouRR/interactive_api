@@ -180,8 +180,14 @@
             return data;
         }
 
-        function makeUrl(api) {
-            let url = 'https://' + window.location.host + '/interactive_api/' + api;
+        function makeUrl(api, ws) {
+            let scheme = window.location.protocol;
+            let url = scheme + '://' + window.location.host + '/interactive_api/' + api;
+            if(ws == 'ws' && scheme == 'https'){
+                url = 'wss' + '://' + window.location.host + '/interactive_api/' + api;
+            }else if(ws == 'ws'){
+                url = 'ws' + '://' + window.location.host + '/interactive_api/' + api;
+            }
             return url;
         }
 
@@ -201,7 +207,7 @@
             window.wsOpen = false;
             if ("WebSocket" in window){
                 // 打开一个 web socket
-                window.ws = new WebSocket('wss://' + window.location.host + '/interactive_api/activity_live/');
+                window.ws = new WebSocket(makeUrl('activity_live/', 'ws'));
                 ws.onopen = function(){
                     window.wsOpen = true;
                     sendMessage();
