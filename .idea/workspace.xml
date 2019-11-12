@@ -6,6 +6,8 @@
       <change beforePath="$PROJECT_DIR$/api/templates/prize.html" beforeDir="false" afterPath="$PROJECT_DIR$/api/templates/prize.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/templates/processing_staff.html" beforeDir="false" afterPath="$PROJECT_DIR$/api/templates/processing_staff.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/templates/staffs.html" beforeDir="false" afterPath="$PROJECT_DIR$/api/templates/staffs.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/log/2019-11-12.log" beforeDir="false" afterPath="$PROJECT_DIR$/cache/log/2019-11-12.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,8 +20,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api/templates/activity.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="151">
-              <caret line="193" lean-forward="true" selection-start-line="193" selection-end-line="193" />
+            <state relative-caret-position="261">
+              <caret line="198" column="87" lean-forward="true" selection-start-line="198" selection-start-column="87" selection-end-line="198" selection-end-column="87" />
               <folding>
                 <element signature="n#style#0;n#pre#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#ul#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -42,6 +44,7 @@
     <findStrings>
       <find>staff</find>
       <find>http</find>
+      <find>ws</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -217,7 +220,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3296355" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49960285" weight="0.31813473" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49960285" visible="true" weight="0.31813473" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.2611399" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -538,13 +541,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="39" column="39" lean-forward="true" selection-start-line="39" selection-start-column="39" selection-end-line="39" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/readme.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -552,10 +548,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/api/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="22" column="18" lean-forward="true" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/api/templates/processing_staff.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="300" column="23" lean-forward="true" selection-start-line="300" selection-start-column="23" selection-end-line="300" selection-end-column="23" />
+        <state relative-caret-position="277">
+          <caret line="294" column="46" selection-start-line="294" selection-start-column="46" selection-end-line="294" selection-end-column="46" />
           <folding>
             <element signature="n#style#0;n#pre#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#ul#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -567,8 +570,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/api/templates/staffs.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="184" column="32" lean-forward="true" selection-start-line="184" selection-start-column="32" selection-end-line="184" selection-end-column="32" />
+        <state relative-caret-position="295">
+          <caret line="185" column="46" selection-start-line="185" selection-start-column="46" selection-end-line="185" selection-end-column="46" />
           <folding>
             <element signature="n#style#0;n#pre#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#ul#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -579,8 +582,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/api/templates/prize.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="485">
-          <caret line="204" column="35" lean-forward="true" selection-start-line="204" selection-start-column="35" selection-end-line="204" selection-end-column="35" />
+        <state relative-caret-position="427">
+          <caret line="207" column="46" selection-start-line="207" selection-start-column="46" selection-end-line="207" selection-end-column="46" />
           <folding>
             <element signature="n#style#0;n#form#1;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
@@ -589,8 +592,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/api/templates/activity.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="193" lean-forward="true" selection-start-line="193" selection-end-line="193" />
+        <state relative-caret-position="261">
+          <caret line="198" column="87" lean-forward="true" selection-start-line="198" selection-start-column="87" selection-end-line="198" selection-end-column="87" />
           <folding>
             <element signature="n#style#0;n#pre#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#ul#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />

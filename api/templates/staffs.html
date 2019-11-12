@@ -183,7 +183,7 @@
         function makeUrl(api, ws) {
             let scheme = window.location.protocol;
             let url = scheme + '//' + window.location.host + '/interactive_api/' + api;
-            if(ws == 'ws' && scheme == 'https'){
+            if(ws == 'ws' && scheme == 'https:'){
                 url = 'wss' + '://' + window.location.host + '/interactive_api/' + api;
             }else if(ws == 'ws'){
                 url = 'ws' + '://' + window.location.host + '/interactive_api/' + api;

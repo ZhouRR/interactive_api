@@ -366,3 +366,4 @@
 2019-11-12 12:37:42   GET:https://api.weixin.qq.com/sns/jscode2session?appid=wxb10693ce301b0503&secret=fe966f7c89ba08eccd70060f2b3f9801&js_code=0714d2Yl0gCidr1hPvYl0AFcYl04d2YO&grant_type=authorization_code
 2019-11-12 12:37:42   status:200
 2019-11-12 12:37:42   data:{'session_key': 'KhUc8syPXDTxECJKenx68Q==', 'openid': 'oJfBH41Q13o00lX3pbhGAKUmThxA'}
+2019-11-12 13:37:22   ('data DoesNotExist',)
