@@ -1,0 +1,253 @@
+<!-- activity/templates/activity/activity.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="robots" content="NONE,NOARCHIVE">
+    <title>Prize Config</title>
+    <link rel="stylesheet" type="text/css" href="/interactive_api/static/rest_framework/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/interactive_api/static/rest_framework/css/bootstrap-tweaks.css">
+    <link rel="stylesheet" type="text/css" href="/interactive_api/static/rest_framework/css/prettify.css">
+    <link rel="stylesheet" type="text/css" href="/interactive_api/static/rest_framework/css/default.css">
+</head>
+<body class="">
+    <div class="wrapper">
+        <div class="navbar navbar-static-top navbar-inverse" role="navigation" aria-label="navbar">
+            <div class="container">
+                <span>
+                    <a class="navbar-brand" rel="nofollow" href=""></a>
+                </span>
+                <ul class="nav navbar-nav pull-right">
+                    <li><a href="/interactive_api/api-auth/login/?next=/interactive_api/activity/">Log in</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container">
+            <ul class="breadcrumb">
+                <li><a href="/interactive_api/index/">Index</a></li>
+                <li class="active"><a href="/interactive_api/config/activity/">Prize Config</a></li>
+            </ul>
+
+            <!-- Content -->
+            <div id="content" role="main" aria-label="content">
+                <div class="content-main" role="main" aria-label="main content">
+                    <div class="response-info" aria-label="response info">
+                        <pre style="margin-top:10px;" class="prettyprint"><span id="output" class="meta nocode"></span></pre>
+                    </div>
+                </div>
+                <div class="tabbable">
+                    <ul style="display:none;"  class="nav nav-tabs form-switcher">
+                        <li>
+                            <a name="html-tab" href="#post-object-form" data-toggle="tab">HTML form</a>
+                        </li>
+                    </ul>
+                    <div class="well tab-content">
+                        <div class="tab-pane" id="post-object-form">
+                            <form id="object-form" class="form-horizontal">
+                                <fieldset>
+                                    <div class="form-group ">
+                                        <label class="col-sm-2 control-label ">
+                                          奖品ID
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <input name="prize_id" class="form-control" type="text" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label class="col-sm-2 control-label ">
+                                          奖品
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <input name="prize_name" class="form-control" type="text" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label class="col-sm-2 control-label ">
+                                          描述
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <input name="prize_memo" class="form-control" type="text" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button id="btn-submit" type="button" class="btn btn-primary js-tooltip" title="" data-original-title="Make a POST request on the Activity List resource">POST</button>
+                                    </div>
+                                </fieldset>
+                            </form>
+                            <form style="margin-top:10px;" id="object-add-form" class="form-horizontal">
+                                <fieldset>
+                                    <div class="form-group ">
+                                        <label class="col-sm-2 control-label ">
+                                          批量添加奖品
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <input name="prize_file" class="form-control" type="file" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button id="btn-add-submit" type="button" class="btn btn-primary js-tooltip" title="" data-original-title="Make a POST request on the Activity List resource">POST</button>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.content -->
+        </div><!-- /.container -->
+    </div><!-- ./wrapper -->
+    <script>
+        window.drf = {
+            csrfHeaderName: "X-CSRFTOKEN",
+            csrfToken: "kpETzDhV4pOk4XIc5QcVVRjLFwJqWCINiXAYKsR9raYAQHJi3mJTNnu0y89se8et"
+        };
+    </script>
+    <script src="/interactive_api/static/rest_framework/js/jquery-3.4.1.min.js"></script>
+    <script src="/interactive_api/static/rest_framework/js/ajax-form.js"></script>
+    <script src="/interactive_api/static/rest_framework/js/csrf.js"></script>
+    <script src="/interactive_api/static/rest_framework/js/bootstrap.min.js"></script>
+    <script src="/interactive_api/static/rest_framework/js/prettify-min.js"></script>
+    <script src="/interactive_api/static/rest_framework/js/default.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#btn-submit").click(function(e) {
+                const data = makePostData();
+                postJSON('prizes/', data)
+                .done(function (data) {
+                    $("#object-form")[0].reset();
+
+                    if(window.socketMsgQueue == undefined){
+                        window.socketMsgQueue = new Array();
+                    }
+                    window.socketMsgQueue.splice(0, window.socketMsgQueue.length);
+                    window.socketMsgQueue.push({"activity": "001"});
+                    if(window.wsOpen == undefined || window.wsOpen == false){
+                        connectWS();
+                    }else{
+                        sendMessage();
+                    }
+                })
+                .fail(function (response, status) {
+                    //handle error response
+                })
+                .always(function(){
+                    getPrizeData();
+                });
+            });
+            $("#btn-add-submit").click(function(e) {
+                const data = new FormData($('#object-add-form')[0]);
+                postFile('prizes/', data)
+                .done(function (data) {
+                    $("#object-add-form")[0].reset();
+
+                    if(window.socketMsgQueue == undefined){
+                        window.socketMsgQueue = new Array();
+                    }
+                    window.socketMsgQueue.splice(0, window.socketMsgQueue.length);
+                    if(window.wsOpen == undefined || window.wsOpen == false){
+                        connectWS();
+                    }else{
+                        sendMessage();
+                    }
+                })
+                .fail(function (response, status) {
+                    //handle error response
+                })
+                .always(function(){
+                    getPrizeData();
+                });
+            });
+            getJSON('prizes/').done(function (data) {
+                let len = data.length;
+                let content = "";
+                for(var i=0;i<len;i++){
+                    content += '<option value="' + data[i].prize_id + '" >'+ data[i].prize_name +'</option>';
+                }
+                $("#prize-select").append(content);
+            })
+            .fail(function (response, status) {
+                //handle error response
+            })
+            .always(function(){
+                //do something useful in either case
+            });
+            getPrizeData();
+        });
+
+        function getPrizeData() {
+            getJSON('prizes/').done(function (data) {
+                let len = data.length;
+                let content = "";
+                for(var i=0;i<len;i++){
+                    content += 'id: ' + data[i].prize_id + ',奖品: '+ data[i].prize_name + ',描述: '+ data[i].prize_memo + ',失效: '+ data[i].distribution + '     ';
+                    content += '\n';
+                }
+                $("#output").html(content);
+            })
+            .fail(function (response, status) {
+                //handle error response
+            })
+            .always(function(){
+                //do something useful in either case
+            });
+        }
+
+        function makePostData() {
+            let data = {}
+            $("input[type=text], select").each(function(){
+                data[$(this).attr('name')] = $(this).val()
+            });
+            $("input[type=checkbox]").each(function(){
+                data[$(this).attr('name')] = $(this).is(':checked')?true:false;
+            });
+            return data;
+        }
+
+        function makeUrl(api) {
+            let url = 'http://' + window.location.host + '/interactive_api/' + api;
+            return url;
+        }
+
+        function postJSON(url, data){
+            return $.ajax({url:makeUrl(url),data:JSON.stringify(data),type:'POST', contentType:'application/json'});
+        }
+
+        function postFile(url, data){
+            return $.ajax({url:makeUrl(url),data:data,type:'POST', processData:false, contentType:false});
+        }
+
+        function getJSON(url, data){
+            return $.ajax({url:makeUrl(url),data:JSON.stringify(data),type:'GET', contentType:'application/json'});
+        }
+
+        function connectWS() {
+            window.wsOpen = false;
+            if ("WebSocket" in window){
+                // 打开一个 web socket
+                window.ws = new WebSocket('ws://' + window.location.host + '/interactive_api/activity_live/');
+                ws.onopen = function(){
+                    window.wsOpen = true;
+                    sendMessage();
+                };
+                ws.onmessage = function (evt){
+                    var received_msg = evt.data;
+                };
+                ws.onclose = function(){
+                    // 关闭 websocket
+                    window.wsOpen = false;
+                };
+            }else{
+                // 浏览器不支持 WebSocket
+                alert("您的浏览器不支持 WebSocket!");
+            }
+        }
+
+        function sendMessage() {
+            if(window.wsOpen != undefined && window.wsOpen == true && window.socketMsgQueue != undefined){
+                $(window.socketMsgQueue).each(function(){
+                    window.ws.send(JSON.stringify($(this)[0]));
+                });
+            }
+        }
+    </script>
+</body>
+</html>

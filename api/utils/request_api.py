@@ -7,6 +7,9 @@ import os
 import datetime
 from pytz import timezone
 
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
+
 cst_tz = timezone('Asia/Shanghai')
 
 
@@ -71,6 +74,15 @@ def post(url, post_data, content):
     return data
 
 
+def send_long_message(message):
+    channel_layer = get_channel_layer()
+    async_to_sync(channel_layer.group_send)('ohs',
+                                            {
+                                                'type': 'send_message',
+                                                'message': message
+                                            })
+
+
 def props_with_(obj):
     pr = {}
     for name in dir(obj):
@@ -81,10 +93,20 @@ def props_with_(obj):
     return pr
 
 
-def is_delete(data, *args):
-    for arg in args:
-        if arg not in data or data[arg] is '':
+def is_delete(req_data, serializer_class, *args):
+    for field in serializer_class.Meta.fields:
+        if field not in req_data or req_data[field] is '' or field in args:
             continue
         else:
             return False
     return True
+
+
+def clone(data, req_data, serializer_class, *args):
+    for field in serializer_class.Meta.fields:
+        if field in req_data and field not in args:
+            try:
+                setattr(data, field, req_data[field])
+            except ValueError as e:
+                print('field: ', field, ' value error')
+    return data

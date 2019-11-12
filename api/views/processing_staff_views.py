@@ -1,6 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.exceptions import ValidationError
 
 from api.serializers import *
 
@@ -11,7 +12,9 @@ class ProcessingStaffViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
     """
-    queryset = ProcessingStaff.objects.all()
+    primary_key = 'staff_id'
+    model_class = ProcessingStaff
+    queryset = model_class.objects.all()
     serializer_class = ProcessingStaffSerializer
     """
     List a queryset.
@@ -25,6 +28,7 @@ class ProcessingStaffViewSet(viewsets.ModelViewSet):
             return self.get_paginated_response(serializer.data)
 
         serializer = self.get_serializer(queryset, many=True)
+
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     """
@@ -32,29 +36,63 @@ class ProcessingStaffViewSet(viewsets.ModelViewSet):
     """
     def create(self, request, *args, **kwargs):
         serializer = None
+        data = None
+
         try:
-            data = ProcessingStaff.objects.get(staff_id=request.data['staff_id'])
-            if request_api.is_delete(request.data, 'name', 'open_id'):
+            data = self.model_class.objects.get(staff_id=request.data[self.primary_key])
+            # 移出指定员工
+            if request_api.is_delete(request.data, self.serializer_class, self.primary_key):
                 self.perform_destroy(data)
-                return Response({request.data['staff_id']}, status=status.HTTP_200_OK)
+                request_api.send_long_message({'activity': '001'})
+                return Response({request.data[self.primary_key]}, status=status.HTTP_200_OK)
             serializer = self.get_serializer(data)
-        except ProcessingStaff.DoesNotExist as e:
+        except self.model_class.DoesNotExist as e:
             request_api.log('data DoesNotExist')
-        except ProcessingStaff.MultipleObjectsReturned as e:
+            # 清空所有员工
+            if 'staff_id' in request.data and request.data['staff_id'] == '-999999':
+                self.perform_destroy(self.get_queryset())
+                request_api.send_long_message({'activity': '001'})
+                return Response({request.data[self.primary_key]}, status=status.HTTP_200_OK)
+            # 添加所有员工
+            if 'staff_id' in request.data and\
+                    (request.data['staff_id'] == '999999' or request.data['staff_id'] == '999998'):
+                staffs = Staff.objects.all()
+                staffs_serializer = StaffSerializer(staffs, many=True)
+                for staff in staffs_serializer.data:
+                    if staff['winning'] is True and request.data['staff_id'] == '999998':
+                        continue
+                    serializer = self.get_serializer(data=staff)
+                    try:
+                        serializer.is_valid(raise_exception=True)
+                        self.perform_create(serializer)
+                    except ValidationError as exc:
+                        request_api.log('ValidationError')
+                        continue
+                request_api.send_long_message({'activity': '001'})
+                return Response({request.data[self.primary_key]}, status=status.HTTP_200_OK)
+        except self.model_class.MultipleObjectsReturned as e:
             request_api.log('data MultipleObjectsReturned')
 
         if serializer is None:
-            serializer = self.get_serializer(data=request.data)
+            # 参加活动
+            try:
+                staff_data = Staff.objects.get(staff_id=request.data['staff_id'])
+            except self.model_class.DoesNotExist as e:
+                return Response({'error': 'invalid staff_id'}, status=status.HTTP_400_BAD_REQUEST)
+            except self.model_class.MultipleObjectsReturned as e:
+                return Response({'error': 'invalid staff_id'}, status=status.HTTP_400_BAD_REQUEST)
+            data = request.data.copy()
+            data['open_id'] = staff_data.open_id
+            serializer = self.get_serializer(data=data)
             serializer.is_valid(raise_exception=True)
             self.perform_create(serializer)
         else:
-            if 'name' in request.data:
-                data.name = request.data['name']
-            if 'open_id' in request.data:
-                data.open_id = request.data['open_id']
+            # 更新
+            request_api.clone(data, request.data, self.serializer_class, self.primary_key)
 
             serializer = self.get_serializer(data, data=serializer.data)
             serializer.is_valid(raise_exception=True)
             self.perform_update(serializer)
 
+        request_api.send_long_message({'activity': '001'})
         return Response(serializer.data, status=status.HTTP_200_OK)

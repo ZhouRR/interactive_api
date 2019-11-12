@@ -3,6 +3,9 @@ from rest_framework import serializers
 from api.models import Staff
 from api.models import ProcessingStaff
 from api.models import Activity
+from api.models import Prize
+from api.models import Empty1
+from api.models import Empty2
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -37,5 +40,11 @@ class ActivitySerializer(serializers.ModelSerializer):
 
 class PrizeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Activity
-        fields = ('created', 'prize_id', 'prize_name', 'prize_memo')
+        model = Prize
+        fields = ('created', 'prize_id', 'prize_name', 'prize_memo', 'distribution')
+
+
+class LotterySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProcessingStaff
+        fields = ('created', 'name', 'open_id', 'staff_id')

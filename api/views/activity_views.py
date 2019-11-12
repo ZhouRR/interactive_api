@@ -11,7 +11,9 @@ class ActivityViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
     """
-    queryset = Activity.objects.all()
+    primary_key = 'activity_id'
+    model_class = Activity
+    queryset = model_class.objects.all()
     serializer_class = ActivitySerializer
     """
     List a queryset.
@@ -25,39 +27,53 @@ class ActivityViewSet(viewsets.ModelViewSet):
             return self.get_paginated_response(serializer.data)
 
         serializer = self.get_serializer(queryset, many=True)
+
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     """
     Create a model instance.
     """
     def create(self, request, *args, **kwargs):
-        activity_serializer = None
+        serializer = None
+        data = None
         try:
-            activity = Activity.objects.get(activity_id=request.data['activity_id'])
-            if request_api.is_delete(request.data, 'activity_name', 'activity_memo'):
-                self.perform_destroy(activity)
-                return Response({request.data['activity_id']}, status=status.HTTP_200_OK)
-            activity_serializer = self.get_serializer(activity)
-        except Activity.DoesNotExist as e:
+            data = self.model_class.objects.get(activity_id=request.data[self.primary_key])
+            # 删除活动
+            if request_api.is_delete(request.data, self.serializer_class, self.primary_key):
+                self.perform_destroy(data)
+                return Response({request.data[self.primary_key]}, status=status.HTTP_200_OK)
+            serializer = self.get_serializer(data)
+        except self.model_class.DoesNotExist as e:
             request_api.log('data DoesNotExist')
-        except Activity.MultipleObjectsReturned as e:
+        except self.model_class.MultipleObjectsReturned as e:
             request_api.log('data MultipleObjectsReturned')
 
-        if activity_serializer is None:
-            activity_serializer = self.get_serializer(data=request.data)
-            activity_serializer.is_valid(raise_exception=True)
-            self.perform_create(activity_serializer)
+        # 其他活动去除'正在进行'
+        if 'processing' in request.data and (request.data['processing'] == 'true' or request.data['processing'] is True):
+            update_serializer = self.get_serializer(self.get_queryset(), many=True)
+            for activity in update_serializer.data:
+                update_from_data = self.model_class.objects.get(activity_id=activity[self.primary_key])
+                update_to_serializer = self.get_serializer(update_from_data)
+                update_from_data.processing = False
+                update_to_serializer = self.get_serializer(update_from_data, data=update_to_serializer.data)
+                update_to_serializer.is_valid(raise_exception=True)
+                self.perform_update(update_to_serializer)
+
+        if serializer is None:
+            # 添加活动
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            self.perform_create(serializer)
         else:
-            activity.activity_name = request.data['activity_name']
-            activity.activity_memo = request.data['activity_memo']
+            # 更新活动
+            request_api.clone(data, request.data, self.serializer_class, self.primary_key, 'processing')
             if 'processing' in request.data:
-                activity.processing = request.data['processing']
+                data.processing = request.data['processing']
             else:
-                activity.processing = False
-            activity.prize = request.data['prize']
+                data.processing = False
 
-            activity_serializer = self.get_serializer(activity, data=activity_serializer.data)
-            activity_serializer.is_valid(raise_exception=True)
-            self.perform_update(activity_serializer)
+            serializer = self.get_serializer(data, data=serializer.data)
+            serializer.is_valid(raise_exception=True)
+            self.perform_update(serializer)
 
-        return Response(activity_serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK)

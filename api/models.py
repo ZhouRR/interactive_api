@@ -41,6 +41,23 @@ class Prize(models.Model):
     prize_id = models.CharField(max_length=3, blank=False, default='000', primary_key=True)
     prize_name = models.CharField(max_length=100, blank=True, default='')
     prize_memo = models.CharField(max_length=200, blank=True, default='')
+    distribution = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ('created',)
+
+
+class Empty1(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    id = models.CharField(max_length=3, blank=False, default='000', primary_key=True)
+
+    class Meta:
+        ordering = ('created',)
+
+
+class Empty2(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    id = models.CharField(max_length=3, blank=False, default='000', primary_key=True)
 
     class Meta:
         ordering = ('created',)

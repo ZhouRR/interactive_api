@@ -1,0 +1,336 @@
+<!-- activity/templates/activity/activity.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="robots" content="NONE,NOARCHIVE">
+    <title>ProcessingStaff Config</title>
+    <link rel="stylesheet" type="text/css" href="/interactive_api/static/rest_framework/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/interactive_api/static/rest_framework/css/bootstrap-tweaks.css">
+    <link rel="stylesheet" type="text/css" href="/interactive_api/static/rest_framework/css/prettify.css">
+    <link rel="stylesheet" type="text/css" href="/interactive_api/static/rest_framework/css/default.css">
+</head>
+<body class="">
+    <div class="wrapper">
+        <div class="navbar navbar-static-top navbar-inverse" role="navigation" aria-label="navbar">
+            <div class="container">
+                <span>
+                    <a class="navbar-brand" rel="nofollow" href=""></a>
+                </span>
+                <ul class="nav navbar-nav pull-right">
+                    <li><a href="/interactive_api/api-auth/login/?next=/interactive_api/processing_staff/">Log in</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container">
+            <ul class="breadcrumb">
+                <li><a href="/interactive_api/index/">Index</a></li>
+                <li class="active"><a href="/interactive_api/config/processing_staff/">ProcessingStaff Config</a></li>
+            </ul>
+
+            <!-- Content -->
+            <div id="content" role="main" aria-label="content">
+                <div class="content-main" role="main" aria-label="main content">
+                    <div class="response-info" aria-label="response info">
+                        <pre style="margin-top:10px;" class="prettyprint"><span id="output" class="meta nocode"></span></pre>
+                    </div>
+                </div>
+                <div class="tabbable">
+                    <ul style="display:none;"  class="nav nav-tabs form-switcher">
+                        <li>
+                            <a name="html-tab" href="#post-form" data-toggle="tab">HTML form</a>
+                        </li>
+                    </ul>
+                    <div class="well tab-content">
+                        <div class="tab-pane" id="post-form">
+                            <form id="object-clear-form" class="form-horizontal">
+                                <fieldset>
+                                    <div class="form-group ">
+                                        <label class="col-sm-2 control-label ">
+                                          移除参与的员工
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <select id="staff-clear-select" name="staff_id" class="form-control">
+                                                <option value="-999999" selected="selected">全部</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button id="btn-clear-submit" type="button" class="btn btn-primary js-tooltip" title="" data-original-title="Make a POST request on the Activity List resource">POST</button>
+                                    </div>
+                                </fieldset>
+                            </form>
+                            <form style="margin-top:10px;" id="object-add-form" class="form-horizontal">
+                                <fieldset>
+                                    <div class="form-group ">
+                                        <label class="col-sm-2 control-label ">
+                                          添加参与的员工
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <select id="staff-add-select" name="staff_id" class="form-control">
+                                                <option value="999999">全部</option>
+                                                <option value="999998" selected="selected">全部(未中奖)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button id="btn-add-submit" type="button" class="btn btn-primary js-tooltip" title="" data-original-title="Make a POST request on the Activity List resource">POST</button>
+                                    </div>
+                                </fieldset>
+                            </form>
+                            <form style="margin-top:10px;" id="object-lottery-form" class="form-horizontal">
+                                <fieldset>
+                                    <div class="form-group ">
+                                        <label class="col-sm-2 control-label ">
+                                          抽出的人数
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <select id="staff-lottery-select" name="lotteryCount" class="form-control">
+                                                <option value="1" selected="selected">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button id="btn-lottery-submit" type="button" class="btn btn-primary js-tooltip" title="" data-original-title="Make a POST request on the Activity List resource">POST</button>
+                                    </div>
+                                </fieldset>
+                            </form>
+                            <form style="margin-top:10px;" id="object-winning-form" class="form-horizontal">
+                                <fieldset>
+                                    <div class="form-group ">
+                                        <label class="col-sm-2 control-label ">
+                                          中奖的员工
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <select id="staff-winning-select" name="staff_id" class="form-control">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button id="btn-winning-submit" type="button" class="btn btn-primary js-tooltip" title="" data-original-title="Make a POST request on the Activity List resource">POST</button>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.content -->
+        </div><!-- /.container -->
+    </div><!-- ./wrapper -->
+    <script>
+        window.drf = {
+            csrfHeaderName: "X-CSRFTOKEN",
+            csrfToken: "kpETzDhV4pOk4XIc5QcVVRjLFwJqWCINiXAYKsR9raYAQHJi3mJTNnu0y89se8et"
+        };
+    </script>
+    <script src="/interactive_api/static/rest_framework/js/jquery-3.4.1.min.js"></script>
+    <script src="/interactive_api/static/rest_framework/js/ajax-form.js"></script>
+    <script src="/interactive_api/static/rest_framework/js/csrf.js"></script>
+    <script src="/interactive_api/static/rest_framework/js/bootstrap.min.js"></script>
+    <script src="/interactive_api/static/rest_framework/js/prettify-min.js"></script>
+    <script src="/interactive_api/static/rest_framework/js/default.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#btn-clear-submit").click(function(e) {
+                const data = makePostData($('#object-clear-form'));
+                postJSON('processing_staff/', data)
+                .done(function (data) {
+                    $("#object-clear-form")[0].reset();
+
+                    if(window.socketMsgQueue == undefined){
+                        window.socketMsgQueue = new Array();
+                    }
+                    window.socketMsgQueue.splice(0, window.socketMsgQueue.length);
+                    if(window.wsOpen == undefined || window.wsOpen == false){
+                        connectWS();
+                    }else{
+                        sendMessage();
+                    }
+                })
+                .fail(function (response, status) {
+                    //handle error response
+                })
+                .always(function(){
+                    getProcessingData();
+                });
+            });
+            $("#btn-add-submit").click(function(e) {
+                const data = makePostData($('#object-add-form'));
+                postJSON('processing_staff/', data)
+                .done(function (data) {
+                    $("#object-add-form")[0].reset();
+
+                    if(window.socketMsgQueue == undefined){
+                        window.socketMsgQueue = new Array();
+                    }
+                    window.socketMsgQueue.splice(0, window.socketMsgQueue.length);
+                    if(window.wsOpen == undefined || window.wsOpen == false){
+                        connectWS();
+                    }else{
+                        sendMessage();
+                    }
+                })
+                .fail(function (response, status) {
+                    //handle error response
+                })
+                .always(function(){
+                    getProcessingData();
+                });
+            });
+            $("#btn-lottery-submit").click(function(e) {
+                const data = makePostData($('#object-lottery-form'));
+                postJSON('lottery/', data)
+                .done(function (data) {
+                    $("#object-lottery-form")[0].reset();
+                    $("#output").html(JSON.stringify(data));
+
+                    if(window.socketMsgQueue == undefined){
+                        window.socketMsgQueue = new Array();
+                    }
+                    window.socketMsgQueue.splice(0, window.socketMsgQueue.length);
+                    if(window.wsOpen == undefined || window.wsOpen == false){
+                        connectWS();
+                    }else{
+                        sendMessage();
+                    }
+                })
+                .fail(function (response, status) {
+                    //handle error response
+                })
+                .always(function(){
+                    getProcessingData();
+                });
+            });
+            $("#btn-winning-submit").click(function(e) {
+                const data = makePostData($('#object-winning-form'));
+                postJSON('lottery/', data)
+                .done(function (data) {
+                    $("#object-winning-form")[0].reset();
+                    $("#output").html(JSON.stringify(data));
+
+                    if(window.socketMsgQueue == undefined){
+                        window.socketMsgQueue = new Array();
+                    }
+                    window.socketMsgQueue.splice(0, window.socketMsgQueue.length);
+                    if(window.wsOpen == undefined || window.wsOpen == false){
+                        connectWS();
+                    }else{
+                        sendMessage();
+                    }
+                })
+                .fail(function (response, status) {
+                    //handle error response
+                })
+                .always(function(){
+                    getProcessingData();
+                });
+            });
+            getProcessingData();
+        });
+
+        function getProcessingData() {
+            getJSON('processing_staff/').done(function (data) {
+                let len = data.length;
+
+                $("#staff-clear-select").empty();
+
+                let content = "";
+                content += '<option value="' + '-999999' + '" >'+ '全部' +'</option>';
+                let outputContent = "";
+                for(var i=0;i<len;i++){
+                    outputContent += 'id: ' + data[i].staff_id + ',姓名: '+ data[i].name + ' ';
+                    if((i+1)%6 == 0){
+                        outputContent += '\n';
+                    }
+                    content += '<option value="' + data[i].staff_id + '" >'+ data[i].name +'</option>';
+                }
+                $("#output").html(outputContent);
+                $("#staff-clear-select").append(content);
+                $("#staff-winning-select").empty();
+                if(len <= 3){
+                    $("#staff-winning-select").append(content);
+                }
+
+                $("#staff-lottery-select").empty();
+                if(len>10){
+                    len = 10;
+                }
+                content = "";
+                for(var i=0;i<len;i++){
+                    content += '<option value="' + (i+1) + '" >'+ (i+1) +'</option>';
+                }
+                $("#staff-lottery-select").append(content);
+            })
+            .fail(function (response, status) {
+                //handle error response
+            })
+            .always(function(){
+                //do something useful in either case
+            });
+        }
+
+        function makePostData(obj) {
+            let data = {}
+            $("input[type=text], select", obj).each(function(){
+                data[$(this).attr('name')] = $(this).val()
+            });
+            $("input[type=checkbox]", obj).each(function(){
+                data[$(this).attr('name')] = $(this).is(':checked')?true:false;
+            });
+            return data;
+        }
+
+        function makeUrl(api) {
+            let url = 'http://' + window.location.host + '/interactive_api/' + api;
+            return url;
+        }
+
+        function postJSON(url, data){
+            return $.ajax({url:makeUrl(url),data:JSON.stringify(data),type:'POST', contentType:'application/json'});
+        }
+
+        function getJSON(url, data){
+            return $.ajax({url:makeUrl(url),data:JSON.stringify(data),type:'GET', contentType:'application/json'});
+        }
+
+        function connectWS() {
+            window.wsOpen = false;
+            if ("WebSocket" in window){
+                // 打开一个 web socket
+                window.ws = new WebSocket('ws://' + window.location.host + '/interactive_api/activity_live/');
+                ws.onopen = function(){
+                    window.wsOpen = true;
+                    sendMessage();
+                };
+                ws.onmessage = function (evt){
+                    var received_msg = evt.data;
+                };
+                ws.onclose = function(){
+                    // 关闭 websocket
+                    window.wsOpen = false;
+                };
+            }else{
+                // 浏览器不支持 WebSocket
+                alert("您的浏览器不支持 WebSocket!");
+            }
+        }
+
+        function sendMessage() {
+            if(window.wsOpen != undefined && window.wsOpen == true && window.socketMsgQueue != undefined){
+                $(window.socketMsgQueue).each(function(){
+                    window.ws.send(JSON.stringify($(this)[0]));
+                });
+            }
+        }
+    </script>
+</body>
+</html>

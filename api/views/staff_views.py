@@ -83,11 +83,17 @@ class StaffViewSet(viewsets.ModelViewSet):
         activity_serializer = None
         try:
             activity = Activity.objects.get(processing=True)
+            prize = Prize.objects.get(prize_id=activity.prize)
+            activity.prize = prize.prize_name
             activity_serializer = ActivitySerializer(activity)
         except Activity.DoesNotExist as e:
             request_api.log('no processing activity')
         except Activity.MultipleObjectsReturned as e:
             request_api.log('more than 1 processing activity')
+        except Prize.DoesNotExist as e:
+            request_api.log('no processing prize')
+        except Prize.MultipleObjectsReturned as e:
+            request_api.log('more than 1 processing prize')
 
         resp = {'staff': staff_serializer.data}
         if activity_serializer is not None:
@@ -103,9 +109,9 @@ class StaffViewSet(viewsets.ModelViewSet):
                     processing_staff = ProcessingStaff.objects.get(staff_id=staff_serializer.data['staff_id'])
                     can_join = False
                 except ProcessingStaff.DoesNotExist as e:
-                    can_join = True
+                    can_join = activity_serializer.data['activity_id'] == '000'
                 except ProcessingStaff.MultipleObjectsReturned as e:
-                    can_join = True
+                    can_join = False
 
                 # 验证剩余次数
                 times = staff_serializer['times'].value

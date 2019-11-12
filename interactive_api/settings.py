@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'api.apps.ApiConfig',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -55,6 +56,18 @@ MIDDLEWARE = [
 ]
 
 CORS_ORIGIN_ALLOW_ALL=True
+
+# Channels
+ASGI_APPLICATION = 'interactive_api.routing.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 
 ROOT_URLCONF = 'interactive_api.urls'
 
