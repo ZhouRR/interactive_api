@@ -306,7 +306,7 @@
             window.wsOpen = false;
             if ("WebSocket" in window){
                 // 打开一个 web socket
-                window.ws = new WebSocket('ws://' + window.location.host + '/interactive_api/activity_live/');
+                window.ws = new WebSocket('wss://' + window.location.host + '/interactive_api/activity_live/');
                 ws.onopen = function(){
                     window.wsOpen = true;
                     sendMessage();
