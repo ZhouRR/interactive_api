@@ -79,6 +79,18 @@ class StaffViewSet(viewsets.ModelViewSet):
                 return Response({'error': 'invalid staff'}, status=status.HTTP_400_BAD_REQUEST)
             self.perform_update(staff_serializer)
 
+        prize_data = ''
+        # 是否已经中奖
+        if staff.prize != '':
+            try:
+                prize_data = Prize.objects.get(prize_id=staff.prize)
+            except self.model_class.DoesNotExist as e:
+                request_api.log('no prize')
+            except self.model_class.MultipleObjectsReturned as e:
+                request_api.log('more than 1 prize')
+            staff.prize = prize_data.prize_name
+            staff_serializer = self.get_serializer(staff)
+
         # 当前正在进行的活动
         activity_serializer = None
         try:

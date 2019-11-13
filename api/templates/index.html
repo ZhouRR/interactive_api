@@ -33,10 +33,10 @@
                     <div class="response-info" aria-label="response info">
                         <pre style="margin-top:10px;" class="prettyprint">
 </span><span class="pun">{</span><span class="pln">
-    </span><span class="str">"活动"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"</span><a href="https://ait.ohsyun.com/interactive_api/config/activity/" rel="nofollow"><span class="str">/config/activity/</span></a><span class="str">"</span><span class="pun">,</span><span class="pln">
-    </span><span class="str">"奖品"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"</span><a href="https://ait.ohsyun.com/interactive_api/config/prize/" rel="nofollow"><span class="str">/config/prize/</span></a><span class="str">"</span><span class="pun">,</span><span class="pln">
-    </span><span class="str">"参与员工"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"</span><a href="https://ait.ohsyun.com/interactive_api/config/processing_staff/" rel="nofollow"><span class="str">/config/processing_staff/</span></a><span class="str">"</span><span class="pun">,</span><span class="pln">
-    </span><span class="str">"批量编辑员工"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"</span><a href="https://ait.ohsyun.com/interactive_api/config/staffs/" rel="nofollow"><span class="str">/config/staffs/</span></a><span class="str">"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"活动"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"</span><a id="a-activity" href="https://ait.ohsyun.com/interactive_api/config/activity/" rel="nofollow"><span class="str">/config/activity/</span></a><span class="str">"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"奖品"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"</span><a id="a-prize" href="https://ait.ohsyun.com/interactive_api/config/prize/" rel="nofollow"><span class="str">/config/prize/</span></a><span class="str">"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"参与员工"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"</span><a id="a-processing_staff" href="https://ait.ohsyun.com/interactive_api/config/processing_staff/" rel="nofollow"><span class="str">/config/processing_staff/</span></a><span class="str">"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"批量编辑员工"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"</span><a id="a-staffs" href="https://ait.ohsyun.com/interactive_api/config/staffs/" rel="nofollow"><span class="str">/config/staffs/</span></a><span class="str">"</span><span class="pun">,</span><span class="pln">
 </span><span class="pun">}</span></pre>
                     </div>
                 </div>
@@ -57,7 +57,22 @@
     <script src="/interactive_api/static/rest_framework/js/default.js"></script>
     <script>
         $(document).ready(function() {
+            $("#a-activity").attr("href", makeUrl("config/activity/"));
+            $("#a-prize").attr("href", makeUrl("config/prize/"));
+            $("#a-processing_staff").attr("href", makeUrl("config/processing_staff/"));
+            $("#a-staffs").attr("href", makeUrl("config/staffs/"));
         });
+
+        function makeUrl(api, ws) {
+            let scheme = window.location.protocol;
+            let url = scheme + '//' + window.location.host + '/interactive_api/' + api;
+            if(ws == 'ws' && scheme == 'https:'){
+                url = 'wss' + '://' + window.location.host + '/interactive_api/' + api;
+            }else if(ws == 'ws'){
+                url = 'ws' + '://' + window.location.host + '/interactive_api/' + api;
+            }
+            return url;
+        }
     </script>
 </body>
 </html>

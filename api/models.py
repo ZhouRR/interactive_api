@@ -9,6 +9,7 @@ class Staff(models.Model):
     staff_id = models.CharField(max_length=10, blank=False, default='0000000000', primary_key=True)
     winning = models.BooleanField(default=False)
     times = models.IntegerField(default=3)
+    prize = models.CharField(max_length=100, blank=True, default='')
 
     class Meta:
         ordering = ('created',)

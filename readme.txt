@@ -6,8 +6,8 @@ conda deactivate
 conda activate develop
 cd ..
 
-PYTHONIOENCODING=utf-8 nohup python manage.py runserver 0.0.0.0:8098 >/dev/null 2>&1 &
 
+PYTHONIOENCODING=utf-8 nohup python manage.py runserver 0.0.0.0:8098 >/dev/null 2>&1 &
 django
 djangorestframework
 django-cors-headers

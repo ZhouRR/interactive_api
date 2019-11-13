@@ -43,19 +43,9 @@ class LotteryViewSet(viewsets.ModelViewSet):
 
         # 中奖员工
         if 'staff_id' in request.data:
-            staff_data = Staff.objects.get(staff_id=request.data['staff_id'])
-            staff_serializer = StaffSerializer(staff_data)
-            staff_data.winning = True
-            staff_data.times = 0
-            staff_serializer = StaffSerializer(staff_data, data=staff_serializer.data)
-            staff_serializer.is_valid(raise_exception=True)
-            self.perform_update(staff_serializer)
-
-            data = self.model_class.objects.get(staff_id=request.data['staff_id'])
-            self.perform_destroy(data)
-
-            # 当前正在进行的活动
+            # 将当前奖品移出奖池
             prize_serializer = None
+            prize = None
             try:
                 activity = Activity.objects.get(processing=True)
                 prize = Prize.objects.get(prize_id=activity.prize)
@@ -74,6 +64,19 @@ class LotteryViewSet(viewsets.ModelViewSet):
                 request_api.log('more than 1 processing prize')
             except ValidationError as exc:
                 request_api.log('prize update fail')
+
+            # 更新获奖的员工信息
+            staff_data = Staff.objects.get(staff_id=request.data['staff_id'])
+            staff_serializer = StaffSerializer(staff_data)
+            staff_data.winning = True
+            staff_data.times = 0
+            staff_data.prize = prize.prize_id
+            staff_serializer = StaffSerializer(staff_data, data=staff_serializer.data)
+            staff_serializer.is_valid(raise_exception=True)
+            self.perform_update(staff_serializer)
+
+            data = self.model_class.objects.get(staff_id=request.data['staff_id'])
+            self.perform_destroy(data)
 
             request_api.send_long_message({'activity': '001'})
             return Response(staff_serializer.data, status=status.HTTP_200_OK)

@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.conf.urls import url, include
 from django.conf.urls.static import static
-from django.urls import path
 
 from rest_framework.routers import DefaultRouter
 
@@ -17,7 +16,8 @@ from api.views import staffs_batch_views
 def deploy_static_url():
     # 静态资源加载
     from django.views import static
-    url_pattern = url(r'^interactive_api/static/(?P<path>.*)$', static.serve, {'document_root': settings.STATIC_ROOT}, name='static')
+    url_pattern = url(r'^interactive_api/static/(?P<path>.*)$', static.serve, {'document_root': settings.STATIC_ROOT},
+                      name='static')
     return url_pattern
 
 
@@ -42,6 +42,7 @@ urlpatterns += [
     url(r'^interactive_api/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     deploy_static_url(),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
 urlpatterns += [url(r'^interactive_api/index/', views.index, name='index'), ]
 urlpatterns += [url(r'^interactive_api/config/activity/', views.activity, name='activity'), ]
 urlpatterns += [url(r'^interactive_api/config/prize/', views.prize, name='prize'), ]

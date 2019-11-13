@@ -59,6 +59,7 @@ class ProcessingStaffViewSet(viewsets.ModelViewSet):
                 staffs = Staff.objects.all()
                 staffs_serializer = StaffSerializer(staffs, many=True)
                 for staff in staffs_serializer.data:
+                    # 已经中奖的员工排除
                     if staff['winning'] is True and request.data['staff_id'] == '999998':
                         continue
                     serializer = self.get_serializer(data=staff)
@@ -74,7 +75,18 @@ class ProcessingStaffViewSet(viewsets.ModelViewSet):
             request_api.log('data MultipleObjectsReturned')
 
         if serializer is None:
+            # 验证当前活动是否可以参加
+            try:
+                activity = Activity.objects.get(processing=True)
+                if activity.activity_id != '000':
+                    return Response({'error': 'invalid activity'}, status=status.HTTP_400_BAD_REQUEST)
+            except Activity.DoesNotExist as e:
+                request_api.log('no processing activity')
+            except Activity.MultipleObjectsReturned as e:
+                request_api.log('more than 1 processing activity')
+
             # 参加活动
+            staff_data = None
             try:
                 staff_data = Staff.objects.get(staff_id=request.data['staff_id'])
             except self.model_class.DoesNotExist as e:
@@ -86,6 +98,16 @@ class ProcessingStaffViewSet(viewsets.ModelViewSet):
             serializer = self.get_serializer(data=data)
             serializer.is_valid(raise_exception=True)
             self.perform_create(serializer)
+            # 更新员工剩余参加次数
+            try:
+                staff_serializer = StaffSerializer(staff_data)
+                staff_data.times = staff_data.times - 1
+                staff_serializer = StaffSerializer(staff_data, data=staff_serializer.data)
+                staff_serializer.is_valid(raise_exception=True)
+                self.perform_update(staff_serializer)
+            except Exception as e:
+                data = self.model_class.objects.get(staff_id=staff_data.staff_id)
+                self.perform_destroy(data)
         else:
             # 更新
             request_api.clone(data, request.data, self.serializer_class, self.primary_key)

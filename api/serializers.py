@@ -23,7 +23,7 @@ class GroupSerializer(serializers.ModelSerializer):
 class StaffSerializer(serializers.ModelSerializer):
     class Meta:
         model = Staff
-        fields = ('created', 'nick_name', 'name', 'open_id', 'staff_id', 'winning', 'times')
+        fields = ('created', 'nick_name', 'name', 'open_id', 'staff_id', 'winning', 'times', 'prize')
 
 
 class ProcessingStaffSerializer(serializers.ModelSerializer):
