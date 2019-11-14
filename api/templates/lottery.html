@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Lottery</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
+    <meta name="format-detection" content="telephone=no" />
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        .lotterybox{
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="lottery-box"></div>
+
+    <!-- Zepto or jQuery -->
+    <script src="/interactive_api/static/rest_framework/js/jquery-3.4.1.min.js"></script>
+
+    <link rel="stylesheet" href="/interactive_api/api/static/lottery.min.css" />
+    <script src="/interactive_api/api/static/lottery.compact.min.js"></script>
+    <script src="/interactive_api/api/static/lottery.min.js"></script>
+    <script src="/interactive_api/api/static/common.js"></script>
+
+    <!-- ROCK ON -->
+    <script>
+        $(document).ready(function() {
+            getProcessingData();
+        });
+
+        function getProcessingData() {
+            getJSON('processing_staff/').done(function (data) {
+                let len = data.length;
+
+                let content = new Array();;
+                for(var i=0;i<len;i++){
+                    let el = {
+                        'avatar': data[i].avatar,
+                        'name': data[i].name,
+                        'data': {
+                            'staff': data[i].staff_id
+                        }
+                    };
+                    content.push(el);
+                }
+                $.lottery({
+                    el: '.lottery-box',
+                    data: content,
+                    once: false,
+                    subtitle: "staff",
+                    confetti: true,
+                    timeout: 15,
+                    speed: 200,
+                    number: 2,
+                    done: function (winners) {
+                        let postData = new Array();;
+                        //handle winners
+                        for (var w in winners){
+                            postData.push(winners[w].data.staff);
+                        }
+                        postWinningData(postData);
+                    }
+                });
+            }).fail(function (response, status) {
+                //handle error response
+            }).always(function(){
+                //do something useful in either case
+            });
+        }
+
+        function postWinningData(winners) {
+            postJSON('lottery/', {'lottery_staffs': winners}).done(function (winners) {
+                //post done
+                console.log('done');
+            }).fail(function (response, status) {
+                //handle error response
+            }).always(function(){
+                //do something useful in either case
+            });
+        }
+    </script>
+</body>
+</html>

@@ -23,7 +23,7 @@ class ActivityConsumer(AsyncWebsocketConsumer):
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
         message = text_data_json['activity']
-        if message == '000':
+        if message == 'ping':
             message = 'pong'
         # Send message to group
         await self.channel_layer.group_send(

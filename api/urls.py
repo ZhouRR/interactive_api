@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.conf.urls import url, include
 from django.conf.urls.static import static
+from django.views.static import serve
 
 from rest_framework.routers import DefaultRouter
 
@@ -43,8 +44,13 @@ urlpatterns += [
     deploy_static_url(),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-urlpatterns += [url(r'^interactive_api/index/', views.index, name='index'), ]
+urlpatterns += [url(r'^interactive_api/config/index/', views.index, name='index'), ]
 urlpatterns += [url(r'^interactive_api/config/activity/', views.activity, name='activity'), ]
 urlpatterns += [url(r'^interactive_api/config/prize/', views.prize, name='prize'), ]
 urlpatterns += [url(r'^interactive_api/config/processing_staff/', views.processing_staff, name='processing_staff'), ]
 urlpatterns += [url(r'^interactive_api/config/staffs/', views.staffs, name='staffs'), ]
+urlpatterns += [url(r'^interactive_api/config/lottery/', views.lottery, name='lottery'), ]
+
+urlpatterns += [url(r'^interactive_api/api/static/(?P<path>.*)$', serve,
+                    {'document_root': settings.STATIC_ROOT.replace('static', 'api') + '/static'},
+                    name='api_static'), ]

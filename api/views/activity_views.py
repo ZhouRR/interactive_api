@@ -76,4 +76,5 @@ class ActivityViewSet(viewsets.ModelViewSet):
             serializer.is_valid(raise_exception=True)
             self.perform_update(serializer)
 
+        request_api.send_long_message({'activity': '001'})
         return Response(serializer.data, status=status.HTTP_200_OK)

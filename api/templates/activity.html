@@ -24,7 +24,7 @@
         </div>
         <div class="container">
             <ul class="breadcrumb">
-                <li><a href="/interactive_api/index/">Index</a></li>
+                <li><a href="/interactive_api/config/index/">Index</a></li>
                 <li class="active"><a href="/interactive_api/config/activity/">Activity Config</a></li>
             </ul>
 
@@ -117,10 +117,11 @@
     <script src="/interactive_api/static/rest_framework/js/bootstrap.min.js"></script>
     <script src="/interactive_api/static/rest_framework/js/prettify-min.js"></script>
     <script src="/interactive_api/static/rest_framework/js/default.js"></script>
+    <script src="/interactive_api/api/static/common.js"></script>
     <script>
         $(document).ready(function() {
             $("#btn-submit").click(function(e) {
-                const data = makePostData();
+                const data = makePostData($("#object-form"));
                 postJSON('activity/', data)
                 .done(function (data) {
                     $("#object-form")[0].reset();
@@ -179,66 +180,6 @@
             .always(function(){
                 //do something useful in either case
             });
-        }
-
-        function makePostData() {
-            let data = {}
-            $("input[type=text], select").each(function(){
-                data[$(this).attr('name')] = $(this).val()
-            });
-            $("input[type=checkbox]").each(function(){
-                data[$(this).attr('name')] = $(this).is(':checked')?true:false;
-            });
-            return data;
-        }
-
-        function makeUrl(api, ws) {
-            let scheme = window.location.protocol;
-            let url = scheme + '//' + window.location.host + '/interactive_api/' + api;
-            if(ws == 'ws' && scheme == 'https:'){
-                url = 'wss' + '://' + window.location.host + '/interactive_api/' + api;
-            }else if(ws == 'ws'){
-                url = 'ws' + '://' + window.location.host + '/interactive_api/' + api;
-            }
-            return url;
-        }
-
-        function postJSON(url, data){
-            return $.ajax({url:makeUrl(url),data:JSON.stringify(data),type:'POST', contentType:'application/json'});
-        }
-
-        function getJSON(url, data){
-            return $.ajax({url:makeUrl(url),data:JSON.stringify(data),type:'GET', contentType:'application/json'});
-        }
-
-        function connectWS() {
-            window.wsOpen = false;
-            if ("WebSocket" in window){
-                // 打开一个 web socket
-                window.ws = new WebSocket(makeUrl('activity_live/', 'ws'));
-                ws.onopen = function(){
-                    window.wsOpen = true;
-                    sendMessage();
-                };
-                ws.onmessage = function (evt){
-                    var received_msg = evt.data;
-                };
-                ws.onclose = function(){
-                    // 关闭 websocket
-                    window.wsOpen = false;
-                };
-            }else{
-                // 浏览器不支持 WebSocket
-                alert("您的浏览器不支持 WebSocket!");
-            }
-        }
-
-        function sendMessage() {
-            if(window.wsOpen != undefined && window.wsOpen == true && window.socketMsgQueue != undefined){
-                $(window.socketMsgQueue).each(function(){
-                    window.ws.send(JSON.stringify($(this)[0]));
-                });
-            }
         }
     </script>
 </body>

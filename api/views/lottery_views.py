@@ -78,25 +78,25 @@ class LotteryViewSet(viewsets.ModelViewSet):
             data = self.model_class.objects.get(staff_id=request.data['staff_id'])
             self.perform_destroy(data)
 
-            request_api.send_long_message({'activity': '001'})
             return Response(staff_serializer.data, status=status.HTTP_200_OK)
-
-        if 'lotteryCount' not in request.data:
-            return Response({'error': 'invalid lotteryCount'}, status=status.HTTP_400_BAD_REQUEST)
-        lottery_count = int(request.data['lotteryCount'])
-        if lottery_count > queryset.count():
-            return Response({'error': 'invalid lotteryCount'}, status=status.HTTP_400_BAD_REQUEST)
 
         # 参加员工
         processing_staffs = []
         for staff in serializer.data:
             processing_staffs += [staff['staff_id'], ]
         # 获奖员工
-        lottery_staffs = random.sample(processing_staffs, lottery_count)
+        if 'lottery_staffs' in request.data:
+            lottery_staffs = request.data['lottery_staffs']
+        else:
+            if 'lotteryCount' not in request.data:
+                return Response({'error': 'invalid lotteryCount'}, status=status.HTTP_400_BAD_REQUEST)
+            lottery_count = int(request.data['lotteryCount'])
+            if lottery_count > queryset.count():
+                return Response({'error': 'invalid lotteryCount'}, status=status.HTTP_400_BAD_REQUEST)
+            lottery_staffs = random.sample(processing_staffs, lottery_count)
         # 移出未获奖员工
         for staff_id in processing_staffs:
             if staff_id not in lottery_staffs:
                 data = self.model_class.objects.get(staff_id=staff_id)
                 self.perform_destroy(data)
-        request_api.send_long_message({'activity': '001'})
         return Response(lottery_staffs, status=status.HTTP_200_OK)

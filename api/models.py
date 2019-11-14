@@ -4,6 +4,7 @@ from django.db import models
 class Staff(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     nick_name = models.CharField(max_length=100, blank=True, default='')
+    avatar = models.CharField(max_length=200, blank=True, default='')
     name = models.CharField(max_length=100, blank=True, default='')
     open_id = models.CharField(max_length=100, blank=True, default='')
     staff_id = models.CharField(max_length=10, blank=False, default='0000000000', primary_key=True)
@@ -18,6 +19,7 @@ class Staff(models.Model):
 class ProcessingStaff(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=100, blank=True, default='')
+    avatar = models.CharField(max_length=200, blank=True, default='')
     open_id = models.CharField(max_length=100, blank=True, default='')
     staff_id = models.CharField(max_length=10, blank=False, default='0000000000', primary_key=True)
 

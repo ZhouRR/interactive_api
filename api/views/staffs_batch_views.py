@@ -42,7 +42,6 @@ class StaffBatchViewSet(viewsets.ModelViewSet):
         # 移出所有员工
         if 'staff_id' in request.data and request.data['staff_id'] == '-999999':
             self.perform_destroy(queryset)
-            request_api.send_long_message({'activity': '001'})
             return Response(serializer.data, status=status.HTTP_200_OK)
         # 移出单个员工
         if 'staff_id' in request.data:
@@ -64,7 +63,6 @@ class StaffBatchViewSet(viewsets.ModelViewSet):
                     request_api.log('ValidationError')
                     continue
 
-        request_api.send_long_message({'activity': '001'})
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 

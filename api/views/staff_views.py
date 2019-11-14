@@ -36,11 +36,29 @@ class StaffViewSet(viewsets.ModelViewSet):
         if 'staffId' not in request.data:
             # 创建新员工
             if 'staff_id' in request.data and request.data['staff_id'] is not '':
-                serializer = self.get_serializer(data=request.data)
-                serializer.is_valid(raise_exception=True)
-                self.perform_create(serializer)
-                headers = self.get_success_headers(serializer.data)
-                return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+                staff_data = None
+                try:
+                    staff_data = Staff.objects.get(staff_id=request.data['staff_id'])
+                except Staff.DoesNotExist as e:
+                    # 创建新员工
+                    serializer = self.get_serializer(data=request.data)
+                    serializer.is_valid(raise_exception=True)
+                    self.perform_create(serializer)
+                except Staff.MultipleObjectsReturned as e:
+                    return Response({'error': 'invalid staff'}, status=status.HTTP_400_BAD_REQUEST)
+                if staff_data is not None:
+                    # 移出指定员工
+                    if request_api.is_delete(request.data, self.serializer_class, 'staff_id'):
+                        self.perform_destroy(staff_data)
+                        return Response({request.data['staff_id']}, status=status.HTTP_200_OK)
+                    # 更新员工
+                    request_api.clone(staff_data, request.data, self.serializer_class, 'staff_id', 'times')
+                    if 'times' in request.data and request.data['times'] != '':
+                        staff_data.times = request.data['times']
+                    serializer = self.get_serializer(staff_data, data=request.data)
+                    serializer.is_valid(raise_exception=True)
+                    self.perform_update(serializer)
+                return Response(serializer.data, status=status.HTTP_200_OK)
             else:
                 return Response({'error': 'invalid parameter'}, status=status.HTTP_400_BAD_REQUEST)
         # 获取openid
@@ -69,7 +87,10 @@ class StaffViewSet(viewsets.ModelViewSet):
         staff_serializer = self.get_serializer(staff)
         if staff.open_id is '':
             staff.open_id = openid
-            staff.nick_name = ''
+            if 'nickName' in request.data:
+                staff.nick_name = request.data['nickName']
+            if 'avatarUrl' in request.data:
+                staff.avatar = request.data['avatarUrl']
 
             staff_serializer = self.get_serializer(staff, data=staff_serializer.data)
             try:

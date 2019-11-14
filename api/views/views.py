@@ -26,6 +26,10 @@ def staffs(request):
     return render(request, 'staffs.html', {})
 
 
+def lottery(request):
+    return render(request, 'lottery.html', {})
+
+
 class UserViewSet(viewsets.ModelViewSet):
     """ 45,34
     API endpoint that allows users to be viewed or edited.
