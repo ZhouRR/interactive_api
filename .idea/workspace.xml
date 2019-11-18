@@ -3,16 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="e7d68aff-9aa9-49c1-b777-d4c3e0d7ac65" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/static/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/static/common.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/static/lottery.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/static/lottery.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/templates/activity.html" beforeDir="false" afterPath="$PROJECT_DIR$/api/templates/activity.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/templates/lottery.html" beforeDir="false" afterPath="$PROJECT_DIR$/api/templates/lottery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/templates/prize.html" beforeDir="false" afterPath="$PROJECT_DIR$/api/templates/prize.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/templates/processing_staff.html" beforeDir="false" afterPath="$PROJECT_DIR$/api/templates/processing_staff.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/templates/staffs.html" beforeDir="false" afterPath="$PROJECT_DIR$/api/templates/staffs.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/views/staffs_batch_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/views/staffs_batch_views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cache/log/2019-11-14.log" beforeDir="false" afterPath="$PROJECT_DIR$/cache/log/2019-11-14.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/log/2019-11-18.log" beforeDir="false" afterPath="$PROJECT_DIR$/cache/log/2019-11-18.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive_api/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/interactive_api/settings.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -40,14 +33,35 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/api/templates/lottery.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="494">
-              <caret line="63" column="31" lean-forward="true" selection-start-line="63" selection-start-column="31" selection-end-line="63" selection-end-column="31" />
+            <state relative-caret-position="302">
+              <caret line="51" column="23" lean-forward="true" selection-start-line="51" selection-start-column="23" selection-end-line="51" selection-end-column="23" />
               <folding>
                 <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/api/views/staff_views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="118">
+              <caret line="128" column="33" lean-forward="true" selection-start-line="128" selection-start-column="33" selection-end-line="128" selection-end-column="33" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/interactive_api/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="462">
+              <caret line="114" column="13" selection-start-line="114" selection-start-column="13" selection-end-line="114" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -73,7 +87,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>done</find>
       <find>send_long_message</find>
       <find>activity</find>
       <find>moveToTarget</find>
@@ -103,6 +116,7 @@
       <find>columns</find>
       <find>lottery</find>
       <find>box</find>
+      <find>inva</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -124,7 +138,6 @@
         <option value="$PROJECT_DIR$/static/rest_framework/css/bootstrap.min.css" />
         <option value="$PROJECT_DIR$/static/common.js" />
         <option value="$PROJECT_DIR$/static/api/common.js" />
-        <option value="$PROJECT_DIR$/interactive_api/settings.py" />
         <option value="$USER_HOME$/miniconda2/envs/develop/lib/python3.6/site-packages/django/views/static.py" />
         <option value="$PROJECT_DIR$/api/views/views.py" />
         <option value="$PROJECT_DIR$/api/urls.py" />
@@ -147,11 +160,12 @@
         <option value="$PROJECT_DIR$/api/static/lottery.min.js" />
         <option value="$PROJECT_DIR$/api/static/common.js" />
         <option value="$PROJECT_DIR$/api/templates/lottery.html" />
+        <option value="$PROJECT_DIR$/interactive_api/settings.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-266" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-254" />
     <option name="y" value="-1057" />
     <option name="width" value="1920" />
     <option name="height" value="1057" />
@@ -190,6 +204,11 @@
               <item name="interactive_api" type="462c0819:PsiDirectoryNode" />
               <item name="api" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="interactive_api" type="b2602c69:ProjectViewProjectNode" />
+              <item name="interactive_api" type="462c0819:PsiDirectoryNode" />
+              <item name="interactive_api" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -277,15 +296,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-266" y="-1057" width="1920" height="1057" extended-state="0" />
-    <editor active="true" />
+    <frame x="-266" y="-1057" width="1920" height="1057" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49851632" visible="true" weight="0.16535018" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49851632" visible="true" weight="0.16535018" />
       <window_info id="Structure" order="1" sideWeight="0.5014837" side_tool="true" weight="0.16535018" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3296355" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49960285" visible="true" weight="0.31813473" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49960285" visible="true" weight="0.31813473" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.25906736" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -450,13 +468,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/interactive_api/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2025">
-          <caret line="140" column="48" lean-forward="true" selection-start-line="140" selection-start-column="48" selection-end-line="140" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/api/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="606">
@@ -563,16 +574,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
           <caret line="24" selection-start-line="24" selection-end-line="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/views/staff_views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1455">
-          <caret line="104" column="29" selection-start-line="104" selection-start-column="29" selection-end-line="104" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -686,11 +687,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/api/templates/lottery.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="63" column="31" lean-forward="true" selection-start-line="63" selection-start-column="31" selection-end-line="63" selection-end-column="31" />
+        <state relative-caret-position="302">
+          <caret line="51" column="23" lean-forward="true" selection-start-line="51" selection-start-column="23" selection-end-line="51" selection-end-column="23" />
           <folding>
             <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/views/staff_views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="128" column="33" lean-forward="true" selection-start-line="128" selection-start-column="33" selection-end-line="128" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/interactive_api/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="114" column="13" selection-start-line="114" selection-start-column="13" selection-end-line="114" selection-end-column="13" />
         </state>
       </provider>
     </entry>

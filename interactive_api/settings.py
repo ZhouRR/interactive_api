@@ -95,8 +95,14 @@ WSGI_APPLICATION = 'interactive_api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'interactive',
+        'USER': 'ai_usr_ohs1',  # 拥有者
+        'PASSWORD': 'ohs@123',  # 密码，
+        'HOST': '47.103.87.161',  # 默认的就没写
+        'PORT': '5432',
     }
 }
 
