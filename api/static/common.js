@@ -61,3 +61,9 @@ function makePostData(obj) {
     });
     return data;
 }
+
+function scrollBar(obj) {
+    obj.scrollTop(10);
+    return $("body").scrollTop()>0;
+    obj.scrollTop(0);
+}

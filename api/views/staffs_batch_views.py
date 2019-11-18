@@ -7,6 +7,8 @@ from api.serializers import *
 
 from api.utils import request_api
 
+import random
+
 
 class StaffBatchViewSet(viewsets.ModelViewSet):
     """
@@ -51,10 +53,19 @@ class StaffBatchViewSet(viewsets.ModelViewSet):
         # 批量添加员工
         if 'staff_file' in request.data:
             staffs = handle_upload_file(request.FILES.get('staff_file', None))
-
+            avatars = ('https://s3.amazonaws.com/uifaces/faces/twitter/zeldman/128.jpg',
+                       'https://s3.amazonaws.com/uifaces/faces/twitter/iannnnn/128.jpg',
+                       'https://s3.amazonaws.com/uifaces/faces/twitter/faulknermusic/128.jpg',
+                       'https://s3.amazonaws.com/uifaces/faces/twitter/sauro/128.jpg',
+                       'https://s3.amazonaws.com/uifaces/faces/twitter/zack415/128.jpg',
+                       'https://s3.amazonaws.com/uifaces/faces/twitter/k/128.jpg',
+                       'https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg',
+                       'https://s3.amazonaws.com/uifaces/faces/twitter/iflendra/128.jpg',
+                       'https://s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg',
+                       'https://s3.amazonaws.com/uifaces/faces/twitter/cemshid/128.jpg')
             for staff in staffs:
                 staff_detail = staff.split(',')
-                data = {'staff_id': staff_detail[0], 'name': staff_detail[1]}
+                data = {'staff_id': staff_detail[0], 'name': staff_detail[1], 'avatar': random.choice(avatars)}
                 serializer = self.get_serializer(data=data)
                 try:
                     serializer.is_valid(raise_exception=True)

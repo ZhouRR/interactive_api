@@ -54,6 +54,7 @@
                                                 <option value="000" selected="selected">投票(可投票参与抽奖)</option>
                                                 <option value="001">抽奖(不可投票参与抽奖)</option>
                                                 <option value="002">小游戏(不可投票参与抽奖)</option>
+                                                <option value="004">准备中(不可投票参与抽奖)</option>
                                             </select>
                                         </div>
                                     </div>
@@ -132,7 +133,7 @@
                     window.socketMsgQueue.splice(0, window.socketMsgQueue.length);
                     window.socketMsgQueue.push({"activity": "001"});
                     if(window.wsOpen == undefined || window.wsOpen == false){
-                        connectWS();
+                        <!--connectWS();-->
                     }else{
                         sendMessage();
                     }

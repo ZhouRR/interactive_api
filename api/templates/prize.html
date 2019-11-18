@@ -74,7 +74,11 @@
                                           失效
                                         </label>
                                         <div class="col-sm-10">
-                                            <input type="checkbox" name="distribution" value="true">
+                                            <select name="distribution" class="form-control">
+                                                <option value="" selected="selected"></option>
+                                                <option value="true">true</option>
+                                                <option value="false">false</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-actions">
@@ -130,7 +134,7 @@
                     window.socketMsgQueue.splice(0, window.socketMsgQueue.length);
                     window.socketMsgQueue.push({"activity": "001"});
                     if(window.wsOpen == undefined || window.wsOpen == false){
-                        connectWS();
+                        <!--connectWS();-->
                     }else{
                         sendMessage();
                     }

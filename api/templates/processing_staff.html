@@ -223,7 +223,7 @@
                     }
                     window.socketMsgQueue.splice(0, window.socketMsgQueue.length);
                     if(window.wsOpen == undefined || window.wsOpen == false){
-                        connectWS();
+                        <!--connectWS();-->
                     }else{
                         sendMessage();
                     }
@@ -257,7 +257,7 @@
                 $("#output").html(outputContent);
                 $("#staff-clear-select").append(content);
                 $("#staff-winning-select").empty();
-                if(len <= 3){
+                if(len <= 10){
                     $("#staff-winning-select").append(content);
                 }
 

@@ -15,7 +15,7 @@
         }
     </style>
 </head>
-<body>
+<body style="background: #333;">
     <div class="lottery-box"></div>
 
     <!-- Zepto or jQuery -->
@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="/interactive_api/api/static/lottery.min.css" />
     <script src="/interactive_api/api/static/lottery.compact.min.js"></script>
     <script src="/interactive_api/api/static/lottery.min.js"></script>
+
     <script src="/interactive_api/api/static/common.js"></script>
 
     <!-- ROCK ON -->
@@ -47,15 +48,22 @@
                     };
                     content.push(el);
                 }
+                let width = 120;
+                if(len > 32 && len <= 60){
+                    width = 71;
+                }else if(len > 60){
+                    width = 41;
+                }
                 $.lottery({
                     el: '.lottery-box',
                     data: content,
-                    once: false,
+                    once: true,
                     subtitle: "staff",
                     confetti: true,
-                    timeout: 15,
+                    timeout: 10,
                     speed: 200,
                     number: 2,
+                    width: width,
                     done: function (winners) {
                         let postData = new Array();;
                         //handle winners
