@@ -101,7 +101,8 @@ DATABASES = {
         'NAME': 'interactive',
         'USER': 'ai_usr_ohs1',  # 拥有者
         'PASSWORD': 'ohs@123',  # 密码，
-        'HOST': '47.103.87.161',  # 默认的就没写
+        # 'HOST': '47.103.87.161',
+        'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }
