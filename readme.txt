@@ -14,3 +14,5 @@ django
 djangorestframework
 django-cors-headers
 urllib3
+channels
+psycopg2

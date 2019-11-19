@@ -63,7 +63,7 @@
                                           活动名称
                                         </label>
                                         <div class="col-sm-10">
-                                            <input name="activity_name" class="form-control" type="text" value="">
+                                            <input id="activity-name" name="activity_name" class="form-control" type="text" value="投票">
                                         </div>
                                     </div>
                                     <div class="form-group ">
@@ -71,7 +71,7 @@
                                           活动描述
                                         </label>
                                         <div class="col-sm-10">
-                                            <input name="activity_memo" class="form-control" type="text" value="">
+                                            <input id="activity-memo" name="activity_memo" class="form-control" type="text" value="投票以参与本轮奖品的角逐">
                                         </div>
                                     </div>
                                     <div class="form-group horizontal-checkbox ">
@@ -80,8 +80,8 @@
                                         </label>
                                         <div class="col-sm-10">
                                             <select name="processing" class="form-control">
-                                                <option value="" selected="selected"></option>
-                                                <option value="true">true</option>
+                                                <option value=""></option>
+                                                <option value="true" selected="selected">true</option>
                                                 <option value="false">false</option>
                                             </select>
                                         </div>
@@ -122,28 +122,35 @@
     <script>
         $(document).ready(function() {
             $("#btn-submit").click(function(e) {
-                const data = makePostData($("#object-form"));
-                postJSON('activity/', data)
-                .done(function (data) {
-                    $("#object-form")[0].reset();
-
-                    if(window.socketMsgQueue == undefined){
-                        window.socketMsgQueue = new Array();
-                    }
-                    window.socketMsgQueue.splice(0, window.socketMsgQueue.length);
-                    window.socketMsgQueue.push({"activity": "001"});
-                    if(window.wsOpen == undefined || window.wsOpen == false){
-                        <!--connectWS();-->
-                    }else{
-                        sendMessage();
-                    }
-                })
-                .fail(function (response, status) {
-                    //handle error response
-                })
-                .always(function(){
-                    getActivityData();
-                });
+                if($("#activity-id-select").val() == '000'){
+                    getJSON('processing_staff/').done(function (data) {
+                        let len = data.length;
+                        if (len > 0){
+                            if(confirm('当前参与人数不为空,确定要发起投票?')==true){
+                                postActivityData();
+                            }
+                        }else{
+                            postActivityData();
+                        }
+                    });
+                }else{
+                    postActivityData();
+                }
+            });
+            $("#activity-id-select").change(function(){
+                if($("#activity-id-select").val() == '000'){
+                    $("#activity-name").val('投票');
+                    $("#activity-memo").val('投票以参与本轮奖品的角逐');
+                }else if($("#activity-id-select").val() == '001'){
+                    $("#activity-name").val('入围');
+                    $("#activity-memo").val('随机抽出进入下一轮的幸运儿');
+                }else if($("#activity-id-select").val() == '002'){
+                    $("#activity-name").val('小游戏');
+                    $("#activity-memo").val('决出最后的胜者赢取奖品');
+                }else if($("#activity-id-select").val() == '004'){
+                    $("#activity-name").val('等待中...');
+                    $("#activity-memo").val('');
+                }
             });
             getJSON('prizes/').done(function (data) {
                 let len = data.length;
@@ -164,6 +171,31 @@
             });
             getActivityData();
         });
+
+        function postActivityData() {
+            const data = makePostData($("#object-form"));
+            postJSON('activity/', data)
+            .done(function (data) {
+                $("#object-form")[0].reset();
+
+                if(window.socketMsgQueue == undefined){
+                    window.socketMsgQueue = new Array();
+                }
+                window.socketMsgQueue.splice(0, window.socketMsgQueue.length);
+                window.socketMsgQueue.push({"activity": "001"});
+                if(window.wsOpen == undefined || window.wsOpen == false){
+                    <!--connectWS();-->
+                }else{
+                    sendMessage();
+                }
+            })
+            .fail(function (response, status) {
+                //handle error response
+            })
+            .always(function(){
+                getActivityData();
+            });
+        }
 
         function getActivityData() {
             getJSON('activity/').done(function (data) {

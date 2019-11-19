@@ -37,7 +37,7 @@
             getJSON('processing_staff/').done(function (data) {
                 let len = data.length;
 
-                let content = new Array();;
+                let content = new Array();
                 for(var i=0;i<len;i++){
                     let el = {
                         'avatar': data[i].avatar,
@@ -49,7 +49,7 @@
                     content.push(el);
                 }
                 let width = 120;
-                if(len > 32 && len <= 60){
+                if(len > 28 && len <= 60){
                     width = 71;
                 }else if(len > 60){
                     width = 41;
@@ -64,17 +64,29 @@
                     speed: 200,
                     number: 2,
                     width: width,
-                    done: function (winners) {
-                        let postData = new Array();;
-                        //handle winners
-                        for (var w in winners){
-                            postData.push(winners[w].data.staff);
+                    done: function (winnerHistory) {
+                        if (confirm('同步抽奖结果?')==true){
+                            let postData = new Array();;
+                            //handle winners
+                            for (var h in winnerHistory){
+                                let records = winnerHistory[h];
+                                for (var r in records){
+                                    if(typeof(records[r]) != 'object'){
+                                        continue;
+                                    }
+                                    let winners = records[r];
+                                    for (var w in winners){
+                                        postData.push(winners[w].data.staff);
+                                    }
+                                }
+                            }
+                            postWinningData(postData);
                         }
-                        postWinningData(postData);
                     }
                 });
             }).fail(function (response, status) {
                 //handle error response
+                alert("员工data失败");
             }).always(function(){
                 //do something useful in either case
             });
@@ -82,10 +94,11 @@
 
         function postWinningData(winners) {
             postJSON('lottery/', {'lottery_staffs': winners}).done(function (winners) {
-                //post done
-                console.log('done');
+                $(".lottery-box").html("");
+                getProcessingData();
             }).fail(function (response, status) {
                 //handle error response
+                alert("同步入围员工失败");
             }).always(function(){
                 //do something useful in either case
             });

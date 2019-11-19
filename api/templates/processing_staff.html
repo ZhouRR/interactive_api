@@ -69,7 +69,9 @@
                                         <div class="col-sm-10">
                                             <select id="staff-add-select" name="staff_id" class="form-control">
                                                 <option value="999999">全部</option>
-                                                <option value="999998" selected="selected">全部(未中奖)</option>
+                                                <option value="999998">全部(未中奖)</option>
+                                                <option value="999997">全部BSE(未中奖)</option>
+                                                <option value="999996" selected="selected">随机BSE(未中奖)</option>
                                             </select>
                                         </div>
                                     </div>
@@ -247,13 +249,19 @@
                 let content = "";
                 content += '<option value="' + '-999999' + '" >'+ '全部' +'</option>';
                 let outputContent = "";
+                outputContent += '总人数: ' + len + '人, ';
+                let bseLen = 0;
                 for(var i=0;i<len;i++){
-                    outputContent += 'id: ' + data[i].staff_id + ',姓名: '+ data[i].name + ' ';
-                    if((i+1)%6 == 0){
-                        outputContent += '\n';
+                    <!--outputContent += 'id: ' + data[i].staff_id + ',姓名: '+ data[i].name + ' ';-->
+                    <!--if((i+1)%6 == 0){-->
+                        <!--outputContent += '\n';-->
+                    <!--}-->
+                    if(data[i].is_bse){
+                        bseLen++;
                     }
                     content += '<option value="' + data[i].staff_id + '" >'+ data[i].name +'</option>';
                 }
+                outputContent += 'BSE人数: ' + bseLen + '人.';
                 $("#output").html(outputContent);
                 $("#staff-clear-select").append(content);
                 $("#staff-winning-select").empty();

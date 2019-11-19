@@ -3,6 +3,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
 
+import random
+
 from api.serializers import *
 
 from api.utils import request_api
@@ -55,7 +57,7 @@ class ProcessingStaffViewSet(viewsets.ModelViewSet):
                     self.perform_destroy(self.get_queryset())
                     self.send_processing_message()
                     return Response({request.data[self.primary_key]}, status=status.HTTP_200_OK)
-                # 添加所有员工
+                # 添加所有员工/未中奖员工
                 if 'staff_id' in request.data and\
                         (request.data['staff_id'] == '999999' or request.data['staff_id'] == '999998'):
                     staffs = Staff.objects.all()
@@ -68,6 +70,41 @@ class ProcessingStaffViewSet(viewsets.ModelViewSet):
                         try:
                             serializer.is_valid(raise_exception=True)
                             self.perform_create(serializer)
+                        except ValidationError as exc:
+                            request_api.log('ValidationError')
+                            continue
+                    self.send_processing_message()
+                    return Response({request.data[self.primary_key]}, status=status.HTTP_200_OK)
+                # 添加BSE
+                elif 'staff_id' in request.data and\
+                        (request.data['staff_id'] == '999997' or request.data['staff_id'] == '999996'):
+                    staffs = Staff.objects.filter(is_bse=True, winning=False, times__gt=0)
+                    if staffs.count() == 0:
+                        return Response({request.data[self.primary_key]}, status=status.HTTP_200_OK)
+                    staffs_serializer = StaffSerializer(staffs, many=True)
+                    processing_staffs = []
+                    for staff in staffs_serializer.data:
+                        processing_staffs += [staff['staff_id'], ]
+                    # 随机
+                    if request.data['staff_id'] == '999996':
+                        random_count = int(len(processing_staffs)/10)
+                        if random_count == 0:
+                            random_count = 1
+                        processing_staffs = random.sample(processing_staffs, random_count)
+
+                    for staff_id in processing_staffs:
+                        staff_data = Staff.objects.get(staff_id=staff_id)
+                        staff_data.times = staff_data.times - 1
+                        staff_serializer = StaffSerializer(staff_data)
+                        serializer = self.get_serializer(data=staff_serializer.data)
+                        try:
+                            # 添加
+                            serializer.is_valid(raise_exception=True)
+                            self.perform_create(serializer)
+                            # 更新
+                            staff_serializer = StaffSerializer(staff_data, data=staff_serializer.data)
+                            staff_serializer.is_valid(raise_exception=True)
+                            self.perform_update(staff_serializer)
                         except ValidationError as exc:
                             request_api.log('ValidationError')
                             continue
@@ -98,6 +135,7 @@ class ProcessingStaffViewSet(viewsets.ModelViewSet):
             data = request.data.copy()
             data['staff_id'] = staff_data.staff_id
             data['avatar'] = staff_data.avatar
+            data['is_bse'] = staff_data.is_bse
             serializer = self.get_serializer(data=data)
             serializer.is_valid(raise_exception=True)
             self.perform_create(serializer)

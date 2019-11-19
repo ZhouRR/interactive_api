@@ -9,6 +9,7 @@ class Staff(models.Model):
     open_id = models.CharField(max_length=100, blank=True, default='')
     staff_id = models.CharField(max_length=10, blank=False, default='0000000000', primary_key=True)
     winning = models.BooleanField(default=False)
+    is_bse = models.BooleanField(default=False)
     times = models.IntegerField(default=3)
     prize = models.CharField(max_length=100, blank=True, default='')
 
@@ -22,6 +23,7 @@ class ProcessingStaff(models.Model):
     avatar = models.CharField(max_length=200, blank=True, default='')
     open_id = models.CharField(max_length=100, blank=True, default='')
     staff_id = models.CharField(max_length=10, blank=False, default='0000000000', primary_key=True)
+    is_bse = models.BooleanField(default=False)
 
     class Meta:
         ordering = ('created',)

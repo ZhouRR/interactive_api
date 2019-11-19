@@ -65,7 +65,9 @@ class StaffBatchViewSet(viewsets.ModelViewSet):
                        'https://s3.amazonaws.com/uifaces/faces/twitter/cemshid/128.jpg')
             for staff in staffs:
                 staff_detail = staff.split(',')
-                data = {'staff_id': staff_detail[0], 'name': staff_detail[1], 'avatar': random.choice(avatars)}
+                is_bse = len(staff_detail) == 3
+                data = {'staff_id': staff_detail[0], 'name': staff_detail[1], 'avatar': random.choice(avatars),
+                        'is_bse': is_bse}
                 serializer = self.get_serializer(data=data)
                 try:
                     serializer.is_valid(raise_exception=True)
