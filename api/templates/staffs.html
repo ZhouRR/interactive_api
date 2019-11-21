@@ -155,6 +155,13 @@
                 outputContent += '总人数: ' + len + '人, ';
                 let bseLen = 0;
                 let winningLen = 0;
+                let winningBSELen = 0;
+                let times1 = 0;
+                let times2 = 0;
+                let times3 = 0;
+                let times1Bse = 0;
+                let times2Bse = 0;
+                let times3Bse = 0;
                 for(var i=0;i<len;i++){
                     <!--outputContent += 'id: ' + data[i].staff_id + ',姓名: '+ data[i].name + ' ' + ',是否BSE: '+ data[i].is_bse + ' ';-->
                     <!--if((i+1)%4 == 0){-->
@@ -165,11 +172,42 @@
                     }
                     if(data[i].winning){
                         winningLen++;
+                        if(data[i].is_bse){
+                            winningBSELen++;
+                        }
+                    }
+                    if(data[i].times == 1){
+                        times1++;
+                        if(data[i].is_bse){
+                            times1Bse++;
+                        }
+                    }
+                    if(data[i].times == 2){
+                        times2++;
+                        if(data[i].is_bse){
+                            times2Bse++;
+                        }
+                    }
+                    if(data[i].times == 3){
+                        times3++;
+                        if(data[i].is_bse){
+                            times3Bse++;
+                        }
                     }
                     content += '<option value="' + data[i].staff_id + '" >'+ data[i].name +'</option>';
                 }
-                outputContent += 'BSE人数: ' + bseLen + '人, ';
-                outputContent += '中奖人数: ' + winningLen + '人.';
+                outputContent += 'BSE人数: ' + bseLen + '人. ';
+                outputContent += '\n';
+                outputContent += '中奖人数: ' + winningLen + '人, ';
+                outputContent += '中奖BSE人数: ' + winningLen + '人.';
+                outputContent += '\n';
+                outputContent += '剩余1次人数: ' + times1 + '人, ';
+                outputContent += '剩余2次人数: ' + times2 + '人, ';
+                outputContent += '剩余3次人数: ' + times3 + '人.';
+                outputContent += '\n';
+                outputContent += '剩余1次BSE人数: ' + times1Bse + '人, ';
+                outputContent += '剩余2次BSE人数: ' + times2Bse + '人, ';
+                outputContent += '剩余3次BSE人数: ' + times3Bse + '人.';
                 $("#output").html(outputContent);
                 $("#staff-clear-select").append(content);
             })
