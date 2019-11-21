@@ -114,11 +114,15 @@ class StaffViewSet(viewsets.ModelViewSet):
 
         # 当前正在进行的活动
         activity_serializer = None
+        processing_number = '1'
+        prize_count = 1
         try:
             activity = Activity.objects.get(processing=True)
+            processing_number = activity.prize
             prize = Prize.objects.get(prize_id=activity.prize)
             activity.prize = prize.prize_name
             activity_serializer = ActivitySerializer(activity)
+            prize_count = Prize.objects.all().count()
         except Activity.DoesNotExist as e:
             request_api.log('no processing activity')
         except Activity.MultipleObjectsReturned as e:
@@ -156,6 +160,8 @@ class StaffViewSet(viewsets.ModelViewSet):
                     'activity': activity_serializer.data,
                     'processing_count': processing_count,
                     'winning_rate': winning_rate,
+                    'processing_number': processing_number[-2:],
+                    'prize_count': prize_count,
                     'canJoin': can_join
                 }
         return Response(resp, status=status.HTTP_200_OK)
