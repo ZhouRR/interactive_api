@@ -99,8 +99,8 @@ DATABASES = {
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'interactive',
-        'USER': 'ai_usr_ohs1',  # 拥有者
-        'PASSWORD': 'ohs@123',  # 密码，
+        'USER': 'ai_usr_ohs1',
+        'PASSWORD': 'ohs@123',
         # 'HOST': '47.103.87.161',
         'HOST': '127.0.0.1',
         'PORT': '5432',

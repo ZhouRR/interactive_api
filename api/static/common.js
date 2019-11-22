@@ -54,7 +54,7 @@ function sendMessage() {
 function makePostData(obj) {
     let data = {}
     $("input[type=text], select", obj).each(function(){
-        data[$(this).attr('name')] = $(this).val()
+        data[$(this).attr('name')] = $(this).val();
     });
     $("input[type=checkbox]", obj).each(function(){
         data[$(this).attr('name')] = $(this).is(':checked')?true:false;

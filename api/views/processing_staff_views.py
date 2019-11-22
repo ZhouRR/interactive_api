@@ -87,7 +87,7 @@ class ProcessingStaffViewSet(viewsets.ModelViewSet):
                         processing_staffs += [staff['staff_id'], ]
                     # 随机
                     if request.data['staff_id'] == '999996':
-                        random_count = int(len(processing_staffs)/10)
+                        random_count = int(len(processing_staffs)/14*3)
                         if random_count == 0:
                             random_count = 1
                         processing_staffs = random.sample(processing_staffs, random_count)

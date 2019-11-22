@@ -176,6 +176,17 @@
             const data = makePostData($("#object-form"));
             postJSON('activity/', data)
             .done(function (data) {
+                if($("#activity-id-select").val() == '000'){
+                    let data = {};
+                    data['staff_id'] = '999996';
+                    postJSON('processing_staff/', data).done(function (data) {
+                        alert('活动更新成功,BSE已经随机添加.');
+                    }).fail(function (response, status) {
+                        //handle error response
+                    }).always(function(){
+                        getActivityData();
+                    });
+                }
                 $("#object-form")[0].reset();
 
                 if(window.socketMsgQueue == undefined){
