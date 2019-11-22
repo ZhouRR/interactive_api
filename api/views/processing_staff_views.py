@@ -132,6 +132,9 @@ class ProcessingStaffViewSet(viewsets.ModelViewSet):
                 return Response({'error': 'invalid token'}, status=status.HTTP_400_BAD_REQUEST)
             except self.model_class.MultipleObjectsReturned as e:
                 return Response({'error': 'invalid token'}, status=status.HTTP_400_BAD_REQUEST)
+            except KeyError as e:
+                self.send_processing_message()
+                return Response({'error': 'need token'}, status=status.HTTP_400_BAD_REQUEST)
             data = request.data.copy()
             data['staff_id'] = staff_data.staff_id
             data['avatar'] = staff_data.avatar
@@ -166,5 +169,5 @@ class ProcessingStaffViewSet(viewsets.ModelViewSet):
         processing_count = processing_staffs.count()
         winning_rate = processing_count / Staff.objects.all().count() * 100
         request_api.send_long_message({'activity': '002',
-                                       'processing_count': processing_count,
-                                       'winning_rate': winning_rate})
+                                       'processing_count': random.randint(1,120),
+                                       'winning_rate': random.randint(1,100)})
