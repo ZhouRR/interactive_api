@@ -104,8 +104,8 @@ DATABASES = {
         'NAME': 'interactive',
         'USER': 'ai_usr_ohs1',
         'PASSWORD': 'ohs@123',
-        'HOST': '47.103.87.161',
-        # 'HOST': '127.0.0.1',
+        # 'HOST': '47.103.87.161',
+        'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }
