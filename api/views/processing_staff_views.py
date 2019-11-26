@@ -133,7 +133,6 @@ class ProcessingStaffViewSet(viewsets.ModelViewSet):
             except self.model_class.MultipleObjectsReturned as e:
                 return Response({'error': 'invalid token'}, status=status.HTTP_400_BAD_REQUEST)
             except KeyError as e:
-                self.send_processing_message()
                 return Response({'error': 'need token'}, status=status.HTTP_400_BAD_REQUEST)
             data = request.data.copy()
             data['staff_id'] = staff_data.staff_id
@@ -149,10 +148,11 @@ class ProcessingStaffViewSet(viewsets.ModelViewSet):
                 staff_serializer = StaffSerializer(staff_data, data=staff_serializer.data)
                 staff_serializer.is_valid(raise_exception=True)
                 self.perform_update(staff_serializer)
+                self.send_processing_message()
             except Exception as e:
                 data = self.model_class.objects.get(staff_id=staff_data.staff_id)
                 self.perform_destroy(data)
-            self.send_processing_message()
+                return Response({'error': 'update times exception'}, status=status.HTTP_400_BAD_REQUEST)
         else:
             # 更新
             request_api.clone(data, request.data, self.serializer_class, self.primary_key)
@@ -169,5 +169,5 @@ class ProcessingStaffViewSet(viewsets.ModelViewSet):
         processing_count = processing_staffs.count()
         winning_rate = processing_count / Staff.objects.all().count() * 100
         request_api.send_long_message({'activity': '002',
-                                       'processing_count': random.randint(1,120),
-                                       'winning_rate': random.randint(1,100)})
+                                       'processing_count': processing_count,
+                                       'winning_rate': winning_rate})
