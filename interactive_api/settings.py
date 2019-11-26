@@ -60,6 +60,9 @@ CORS_ORIGIN_ALLOW_ALL=True
 # Channels
 ASGI_APPLICATION = 'interactive_api.routing.application'
 
+
+WEBSOCKET_FACTORY_CLASS = 'dwebsocket.backends.uwsgi.factory.uWsgiWebSocketFactory'
+
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
@@ -101,8 +104,8 @@ DATABASES = {
         'NAME': 'interactive',
         'USER': 'ai_usr_ohs1',
         'PASSWORD': 'ohs@123',
-        # 'HOST': '47.103.87.161',
-        'HOST': '127.0.0.1',
+        'HOST': '47.103.87.161',
+        # 'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }
