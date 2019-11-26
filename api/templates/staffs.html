@@ -97,27 +97,30 @@
     <script>
         $(document).ready(function() {
             $("#btn-clear-submit").click(function(e) {
-                const data = makePostData($('#object-clear-form'));
-                postJSON('staffs_batch/', data)
-                .done(function (data) {
-                    $("#object-clear-form")[0].reset();
+                if (confirm('确定移出员工?')==true){
+                    const data = makePostData($('#object-clear-form'));
+                    postJSON('staffs_batch/', data)
+                    .done(function (data) {
+                        $("#object-clear-form")[0].reset();
 
-                    if(window.socketMsgQueue == undefined){
-                        window.socketMsgQueue = new Array();
-                    }
-                    window.socketMsgQueue.splice(0, window.socketMsgQueue.length);
-                    if(window.wsOpen == undefined || window.wsOpen == false){
-                        connectWS();
-                    }else{
-                        sendMessage();
-                    }
-                })
-                .fail(function (response, status) {
-                    //handle error response
-                })
-                .always(function(){
-                    getStaffData();
-                });
+                        if(window.socketMsgQueue == undefined){
+                            window.socketMsgQueue = new Array();
+                        }
+                        window.socketMsgQueue.splice(0, window.socketMsgQueue.length);
+                        if(window.wsOpen == undefined || window.wsOpen == false){
+                            connectWS();
+                        }else{
+                            sendMessage();
+                        }
+                    })
+                    .fail(function (response, status) {
+                        //handle error response
+                    })
+                    .always(function(){
+                        getStaffData();
+                    });
+                }else{
+                }
             });
             $("#btn-add-submit").click(function(e) {
                 const data = new FormData($('#object-add-form')[0]);
