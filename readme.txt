@@ -10,6 +10,11 @@ ps aux|grep 8098
 
 PYTHONIOENCODING=utf-8 nohup python manage.py runserver 0.0.0.0:8098 >/dev/null 2>&1 &
 
+supervisord -c /etc/supervisord.conf
+
+supervisorctl start daphne
+supervisorctl stop daphne
+
 django
 djangorestframework
 django-cors-headers
