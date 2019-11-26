@@ -60,9 +60,6 @@ CORS_ORIGIN_ALLOW_ALL=True
 # Channels
 ASGI_APPLICATION = 'interactive_api.routing.application'
 
-
-WEBSOCKET_FACTORY_CLASS = 'dwebsocket.backends.uwsgi.factory.uWsgiWebSocketFactory'
-
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
