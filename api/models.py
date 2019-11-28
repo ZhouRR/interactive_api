@@ -42,6 +42,7 @@ class Activity(models.Model):
 
 
 class Prize(models.Model):
+    MultipleObjectsReturned = None
     created = models.DateTimeField(auto_now_add=True)
     prize_id = models.CharField(max_length=3, blank=False, default='000', primary_key=True)
     prize_name = models.CharField(max_length=100, blank=True, default='')

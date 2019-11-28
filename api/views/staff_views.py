@@ -131,13 +131,12 @@ class StaffViewSet(viewsets.ModelViewSet):
             request_api.log('no processing prize')
         except Prize.MultipleObjectsReturned as e:
             request_api.log('more than 1 processing prize')
-
-        resp = {'staff': staff_serializer.data,
-                'activity': activity_serializer.data,
-                'processing_number': processing_number[-2:],
-                'prize_count': prize_count}
+        resp = {'staff': staff_serializer.data}
         if activity_serializer is not None:
-            resp = {'staff': staff_serializer.data, 'activity': activity_serializer.data}
+            resp = {'staff': staff_serializer.data,
+                    'activity': activity_serializer.data,
+                    'processing_number': processing_number[-2:],
+                    'prize_count': prize_count}
             if activity_serializer.data['activity_id'] == '000' or activity_serializer.data['activity_id'] == '001':
                 # 统计参加活动的人数
                 processing_staffs = ProcessingStaff.objects.all()
@@ -158,13 +157,7 @@ class StaffViewSet(viewsets.ModelViewSet):
                 if times <= 0:
                     can_join = False
 
-                resp = {
-                    'staff': staff_serializer.data,
-                    'activity': activity_serializer.data,
-                    'processing_count': processing_count,
-                    'winning_rate': winning_rate,
-                    'processing_number': processing_number[-2:],
-                    'prize_count': prize_count,
-                    'canJoin': can_join
-                }
+                resp['processing_count'] = processing_count
+                resp['winning_rate'] = winning_rate
+                resp['canJoin'] = can_join
         return Response(resp, status=status.HTTP_200_OK)
