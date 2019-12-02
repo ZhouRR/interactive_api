@@ -136,27 +136,26 @@ class StaffViewSet(viewsets.ModelViewSet):
             resp['activity'] = activity_serializer.data
             resp['processing_number'] = processing_number[-2:]
             resp['prize_count'] = prize_count
-            if activity_serializer.data['activity_id'] == '000' or activity_serializer.data['activity_id'] == '001':
-                # 统计参加活动的人数
-                processing_staffs = ProcessingStaff.objects.all()
-                processing_count = processing_staffs.count()
-                winning_rate = processing_count / self.get_queryset().count() * 100
+            # 统计参加活动的人数
+            processing_staffs = ProcessingStaff.objects.all()
+            processing_count = processing_staffs.count()
+            winning_rate = processing_count / self.get_queryset().count() * 100
 
-                # 验证是否已经参加抽奖
-                try:
-                    processing_staff = ProcessingStaff.objects.get(staff_id=staff_serializer.data['staff_id'])
-                    can_join = False
-                except ProcessingStaff.DoesNotExist as e:
-                    can_join = activity_serializer.data['activity_id'] == '000'
-                except ProcessingStaff.MultipleObjectsReturned as e:
-                    can_join = False
+            # 验证是否已经参加抽奖
+            try:
+                processing_staff = ProcessingStaff.objects.get(staff_id=staff_serializer.data['staff_id'])
+                can_join = False
+            except ProcessingStaff.DoesNotExist as e:
+                can_join = activity_serializer.data['activity_id'] == '000'
+            except ProcessingStaff.MultipleObjectsReturned as e:
+                can_join = False
 
-                # 验证剩余次数
-                times = staff_serializer['times'].value
-                if times <= 0:
-                    can_join = False
+            # 验证剩余次数
+            times = staff_serializer['times'].value
+            if times <= 0:
+                can_join = False
 
-                resp['processing_count'] = processing_count
-                resp['winning_rate'] = winning_rate
-                resp['canJoin'] = can_join
+            resp['processing_count'] = processing_count
+            resp['winning_rate'] = winning_rate
+            resp['canJoin'] = can_join
         return Response(resp, status=status.HTTP_200_OK)

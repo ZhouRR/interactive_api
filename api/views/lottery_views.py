@@ -99,4 +99,6 @@ class LotteryViewSet(viewsets.ModelViewSet):
             if staff_id not in lottery_staffs:
                 data = self.model_class.objects.get(staff_id=staff_id)
                 self.perform_destroy(data)
+        request_api.send_long_message({'activity': '003',
+                                       'lottery_staffs': lottery_staffs})
         return Response(lottery_staffs, status=status.HTTP_200_OK)
