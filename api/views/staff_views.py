@@ -140,10 +140,12 @@ class StaffViewSet(viewsets.ModelViewSet):
             processing_staffs = ProcessingStaff.objects.all()
             processing_count = processing_staffs.count()
             winning_rate = processing_count / self.get_queryset().count() * 100
+            shooting = False
 
             # 验证是否已经参加抽奖
             try:
                 processing_staff = ProcessingStaff.objects.get(staff_id=staff_serializer.data['staff_id'])
+                shooting = True
                 can_join = False
             except ProcessingStaff.DoesNotExist as e:
                 can_join = activity_serializer.data['activity_id'] == '000'
@@ -158,4 +160,5 @@ class StaffViewSet(viewsets.ModelViewSet):
             resp['processing_count'] = processing_count
             resp['winning_rate'] = winning_rate
             resp['canJoin'] = can_join
+            resp['shooting'] = shooting
         return Response(resp, status=status.HTTP_200_OK)

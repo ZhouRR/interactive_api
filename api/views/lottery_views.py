@@ -99,6 +99,22 @@ class LotteryViewSet(viewsets.ModelViewSet):
             if staff_id not in lottery_staffs:
                 data = self.model_class.objects.get(staff_id=staff_id)
                 self.perform_destroy(data)
+        update_serializer = ActivitySerializer(Activity.objects.all(), many=True)
+        prize = '001'
+        # 更新进行中的活动为小游戏
+        for activity in update_serializer.data:
+            update_from_data = Activity.objects.get(activity_id=activity['activity_id'])
+            update_to_serializer = ActivitySerializer(update_from_data)
+            if update_from_data.activity_id == '000':
+                prize = update_from_data.prize
+            if update_from_data.activity_id == '002':
+                update_from_data.processing = True
+                update_from_data.prize = prize
+            else:
+                update_from_data.processing = False
+            update_to_serializer = ActivitySerializer(update_from_data, data=update_to_serializer.data)
+            update_to_serializer.is_valid(raise_exception=True)
+            self.perform_update(update_to_serializer)
         request_api.send_long_message({'activity': '003',
                                        'lottery_staffs': lottery_staffs})
         return Response(lottery_staffs, status=status.HTTP_200_OK)
