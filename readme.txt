@@ -12,6 +12,7 @@ PYTHONIOENCODING=utf-8 nohup python manage.py runserver 0.0.0.0:8098 >/dev/null 
 
 supervisord -c /etc/supervisord.conf
 
+supervisorctl status daphne
 supervisorctl start daphne
 supervisorctl stop daphne
 
