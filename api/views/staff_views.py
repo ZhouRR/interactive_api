@@ -133,10 +133,9 @@ class StaffViewSet(viewsets.ModelViewSet):
             request_api.log('more than 1 processing prize')
         resp = {'staff': staff_serializer.data}
         if activity_serializer is not None:
-            resp = {'staff': staff_serializer.data,
-                    'activity': activity_serializer.data,
-                    'processing_number': processing_number[-2:],
-                    'prize_count': prize_count}
+            resp['activity'] = activity_serializer.data
+            resp['processing_number'] = processing_number[-2:]
+            resp['prize_count'] = prize_count
             if activity_serializer.data['activity_id'] == '000' or activity_serializer.data['activity_id'] == '001':
                 # 统计参加活动的人数
                 processing_staffs = ProcessingStaff.objects.all()
