@@ -8,10 +8,12 @@ from . import request_api
 
 
 def get_openid(request_data):
+    # appId: 'wxb10693ce301b0503',
+    # appSecret: 'fe966f7c89ba08eccd70060f2b3f9801',
     if 'appId' not in request_data:
-        return None
+        request_data['appId'] = 'wxb10693ce301b0503'
     if 'appSecret' not in request_data:
-        return None
+        request_data['appSecret'] = 'fe966f7c89ba08eccd70060f2b3f9801'
     if 'code' not in request_data:
         return None
 
