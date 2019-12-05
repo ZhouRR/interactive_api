@@ -66,7 +66,7 @@
                     width: width,
                     done: function (winnerHistory) {
                         if (confirm('同步抽奖结果?')==true){
-                            let postData = new Array();;
+                            let postData = new Array();
                             //handle winners
                             for (var h in winnerHistory){
                                 let records = winnerHistory[h];
@@ -80,7 +80,7 @@
                                     }
                                 }
                             }
-                            postWinningData(postData);
+                            postWinningData(postData, winnerHistory);
                         }
                     }
                 });
@@ -92,15 +92,15 @@
             });
         }
 
-        function postWinningData(winners) {
+        function postWinningData(winners, winnerHistory) {
             postJSON('lottery/', {'lottery_staffs': winners}).done(function (winners) {
-                $(".lottery-box").html("");
-                getProcessingData();
+                $.lottery('clear');
             }).fail(function (response, status) {
                 //handle error response
                 alert("同步入围员工失败");
             }).always(function(){
-                //do something useful in either case
+                $(".lottery-box").html("");
+                getProcessingData();
             });
         }
     </script>

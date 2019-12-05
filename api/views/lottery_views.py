@@ -1,9 +1,10 @@
+import json
+import random
+
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
-
-import random
 
 from api.serializers import *
 
@@ -115,6 +116,14 @@ class LotteryViewSet(viewsets.ModelViewSet):
             update_to_serializer = ActivitySerializer(update_from_data, data=update_to_serializer.data)
             update_to_serializer.is_valid(raise_exception=True)
             self.perform_update(update_to_serializer)
+            # 备份数据
+            staff_serializer = StaffSerializer(Staff.objects.all(), many=True)
+            processing_serializer = ProcessingStaffSerializer(ProcessingStaff.objects.all(), many=True)
+            prize_serializer = PrizeSerializer(Prize.objects.all(), many=True)
+            backup = {'staff': staff_serializer.data,
+                      'processing': processing_serializer.data,
+                      'prize': prize_serializer.data}
+            request_api.save_backup(json.dumps(backup))
         request_api.send_long_message({'activity': '003',
                                        'lottery_staffs': lottery_staffs})
         return Response(lottery_staffs, status=status.HTTP_200_OK)

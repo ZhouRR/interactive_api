@@ -50,6 +50,7 @@ urlpatterns += [url(r'^interactive_api/config/prize/', views.prize, name='prize'
 urlpatterns += [url(r'^interactive_api/config/processing_staff/', views.processing_staff, name='processing_staff'), ]
 urlpatterns += [url(r'^interactive_api/config/staffs/', views.staffs, name='staffs'), ]
 urlpatterns += [url(r'^interactive_api/config/lottery/', views.lottery, name='lottery'), ]
+urlpatterns += [url(r'^interactive_api/config/backup/', views.backup, name='backup'), ]
 
 urlpatterns += [url(r'^interactive_api/api/static/(?P<path>.*)$', serve,
                     {'document_root': settings.STATIC_ROOT.replace('static', 'api') + '/static'},

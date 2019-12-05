@@ -1,3 +1,5 @@
+import json
+
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import status
@@ -75,6 +77,15 @@ class ActivityViewSet(viewsets.ModelViewSet):
             serializer = self.get_serializer(data, data=serializer.data)
             serializer.is_valid(raise_exception=True)
             self.perform_update(serializer)
+            # 备份
+            if data.activity_id == '001':
+                staff_serializer = StaffSerializer(Staff.objects.all(), many=True)
+                processing_serializer = ProcessingStaffSerializer(ProcessingStaff.objects.all(), many=True)
+                prize_serializer = PrizeSerializer(Prize.objects.all(), many=True)
+                backup = {'staff': staff_serializer.data,
+                          'processing': processing_serializer.data,
+                          'prize': prize_serializer.data}
+                request_api.save_backup(json.dumps(backup))
 
         request_api.send_long_message({'activity': '001'})
         return Response(serializer.data, status=status.HTTP_200_OK)

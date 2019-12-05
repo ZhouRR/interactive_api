@@ -30,6 +30,10 @@ def lottery(request):
     return render(request, 'lottery.html', {})
 
 
+def backup(request):
+    return render(request, 'backup.html', {})
+
+
 class UserViewSet(viewsets.ModelViewSet):
     """ 45,34
     API endpoint that allows users to be viewed or edited.

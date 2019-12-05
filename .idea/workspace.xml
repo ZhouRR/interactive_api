@@ -3,7 +3,40 @@
   <component name="ChangeListManager">
     <list default="true" id="e7d68aff-9aa9-49c1-b777-d4c3e0d7ac65" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/utils/weixin_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/utils/weixin_api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/static/lottery.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/static/lottery.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/templates/backup.html" beforeDir="false" afterPath="$PROJECT_DIR$/api/templates/backup.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/api/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/templates/lottery.html" beforeDir="false" afterPath="$PROJECT_DIR$/api/templates/lottery.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/templates/prize.html" beforeDir="false" afterPath="$PROJECT_DIR$/api/templates/prize.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/templates/processing_staff.html" beforeDir="false" afterPath="$PROJECT_DIR$/api/templates/processing_staff.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/templates/staffs.html" beforeDir="false" afterPath="$PROJECT_DIR$/api/templates/staffs.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/utils/request_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/utils/request_api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/views/activity_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/views/activity_views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/views/lottery_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/views/lottery_views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/views/prize_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/views/prize_views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/views/processing_staff_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/views/processing_staff_views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/views/staff_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/views/staff_views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/views/staffs_batch_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/views/staffs_batch_views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/views/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/views/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/log/2019-11-06.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/log/2019-11-07.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/log/2019-11-08.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/log/2019-11-11.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/log/2019-11-12.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/log/2019-11-13.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/log/2019-11-14.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/log/2019-11-15.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/log/2019-11-18.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/log/2019-11-19.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/log/2019-11-20.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/log/2019-11-21.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/log/2019-11-22.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/log/2019-11-28.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/log/2019-12-02.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/log/2019-12-03.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,59 +52,26 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>profile</find>
-      <find>profile__parent</find>
-      <find>profile__wrapper</find>
-      <find>profile__content</find>
-      <find>avatar</find>
-      <find>initDom</find>
-      <find>container</find>
-      <find>dh-</find>
-      <find>.dh-lottery</find>
-      <find>lottery-selector</find>
-      <find>start</find>
-      <find>initSelector</find>
-      <find>userlist</find>
-      <find>columns</find>
-      <find>lottery</find>
-      <find>box</find>
-      <find>inva</find>
-      <find>confirm</find>
-      <find>saveIconHtml</find>
-      <find>dh-icon-dice</find>
-      <find>dh-icon</find>
-      <find>dh-history-show</find>
-      <find>dh-save</find>
-      <find>svgIcons</find>
-      <find>conf</find>
-      <find>settings.winners</find>
-      <find>winnerHistory</find>
-      <find>localStorage</find>
-      <find>cleanHistory</find>
-      <find>done</find>
-    </findStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1U8mYq3AwJRMNTBI2M6VuC7c1pP" />
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/api/templates" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/cache/backup" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/cache/backup" />
+      <recent name="$PROJECT_DIR$/api/templates" />
+      <recent name="$PROJECT_DIR$/api/views" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/static/api" />
       <recent name="$PROJECT_DIR$/static" />
       <recent name="$PROJECT_DIR$/api/templates/static" />
       <recent name="$PROJECT_DIR$/api/templates" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/api/templates" />
-      <recent name="$PROJECT_DIR$/api/views" />
     </key>
   </component>
   <component name="RunDashboard">

@@ -41,16 +41,17 @@ class PrizeViewSet(viewsets.ModelViewSet):
         if 'prize_file' in request.data:
             self.perform_destroy(self.get_queryset())
             prizes = handle_upload_file(request.FILES.get('prize_file', None))
+            prize_data = []
             for prize in prizes:
                 prize_detail = prize.split(',')
                 data = {'prize_id': prize_detail[0], 'prize_name': prize_detail[1], 'prize_memo': prize_detail[2]}
-                serializer = self.get_serializer(data=data)
-                try:
-                    serializer.is_valid(raise_exception=True)
-                    self.perform_create(serializer)
-                except ValidationError as exc:
-                    request_api.log('ValidationError')
-                    continue
+                prize_data += [data, ]
+            serializer = self.get_serializer(data=prize_data, many=True)
+            try:
+                serializer.is_valid(raise_exception=True)
+                self.perform_create(serializer)
+            except ValidationError as exc:
+                request_api.log(exc)
             return Response({'prizes': prizes}, status=status.HTTP_200_OK)
         try:
             data = self.model_class.objects.get(prize_id=request.data[self.primary_key])

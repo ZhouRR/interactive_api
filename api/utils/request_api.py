@@ -6,6 +6,7 @@ import json
 import os
 import datetime
 from pytz import timezone
+import shutil
 
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
@@ -45,6 +46,54 @@ def save_log(log_str):
     with open(log_path + date + '.log', 'w', encoding='utf-8', errors='ignore') as fpo:
         fpo.write(log_last)
         fpo.write(date_time + '   ' + log_str + u'\n')
+
+
+def save_backup(*args):
+    now = datetime.datetime.now(cst_tz)
+    date_time = now.strftime("%Y%m%d%H%M%S")
+    backup_path = os.path.join(settings.BASE_DIR, 'cache/backup/')
+    # 读取文件
+    file_paths = list_dirs(backup_path)
+    file_paths.sort()
+    file_paths.reverse()
+    i = 0
+    for file_path in file_paths:
+        if i > 2:
+            os.remove(file_path)
+        i += 1
+
+    backup_str = ''
+    if not os.path.exists(backup_path):
+        os.mkdir(os.path.join(settings.BASE_DIR, 'cache/'))
+        os.mkdir(backup_path)
+    for arg in args:
+        if arg is None:
+            continue
+        if backup_str != '':
+            backup_str += u'\n'
+        backup_str += arg
+    with open(backup_path + date_time + '.bak', 'w', encoding='utf-8', errors='ignore') as fpo:
+        fpo.write(backup_str)
+
+
+def list_dirs(path):
+    return list_files(path, False)
+
+
+def list_files(path, folder=False):
+    # 得到文件夹下的所有文件名称
+    files = os.listdir(path)
+    file_nms = []
+    # 遍历文件夹
+    for file in files:
+        file = os.path.join(path, file)
+        # 判断是否是文件夹
+        if os.path.isdir(file) and folder:
+            file_nms.append(os.path.abspath(file))
+        elif not os.path.isdir(file) and not folder:
+            file_nms.append(os.path.abspath(file))
+
+    return file_nms
 
 
 def get(url, content):
