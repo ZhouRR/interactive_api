@@ -25,7 +25,7 @@ WE_SESSION_URL = 'https://api.weixin.qq.com/sns/jscode2session?' \
 SECRET_KEY = '368trft0mq@ra87h)4o*#h@1yoo-3a1f+cefw!9b*b7+7bc3v4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 

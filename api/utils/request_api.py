@@ -38,7 +38,6 @@ def save_log(log_str):
     log_path = os.path.join(settings.BASE_DIR, 'cache/log/')
     log_last = ''
     if not os.path.exists(log_path):
-        os.mkdir(os.path.join(settings.BASE_DIR, 'cache/'))
         os.mkdir(log_path)
     elif os.path.exists(log_path + date + '.log'):
         with open(log_path + date + '.log', 'r', encoding='utf-8', errors='ignore') as fp:
@@ -64,7 +63,6 @@ def save_backup(*args):
 
     backup_str = ''
     if not os.path.exists(backup_path):
-        os.mkdir(os.path.join(settings.BASE_DIR, 'cache/'))
         os.mkdir(backup_path)
     for arg in args:
         if arg is None:
