@@ -4,8 +4,6 @@
     <list default="true" id="e7d68aff-9aa9-49c1-b777-d4c3e0d7ac65" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/utils/request_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/utils/request_api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/views/staffs_batch_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/views/staffs_batch_views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

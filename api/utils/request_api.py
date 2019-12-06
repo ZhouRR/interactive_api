@@ -60,7 +60,7 @@ def save_backup(*args):
         file_paths = list_dirs(backup_path)
         file_paths.sort()
         file_paths.reverse()
-        if len(file_paths) > 2:
+        if len(file_paths) > 3:
             os.remove(file_paths[-1])
 
     backup_str = ''
