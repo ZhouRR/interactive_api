@@ -4,7 +4,8 @@
     <list default="true" id="e7d68aff-9aa9-49c1-b777-d4c3e0d7ac65" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/utils/request_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/utils/request_api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive_api/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/interactive_api/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/views/staffs_batch_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/views/staffs_batch_views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,16 +31,16 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/cache/backup" />
-      <recent name="$PROJECT_DIR$/api/templates" />
-      <recent name="$PROJECT_DIR$/api/views" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/static/api" />
       <recent name="$PROJECT_DIR$/static" />
       <recent name="$PROJECT_DIR$/api/templates/static" />
       <recent name="$PROJECT_DIR$/api/templates" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/cache/backup" />
+      <recent name="$PROJECT_DIR$/api/templates" />
+      <recent name="$PROJECT_DIR$/api/views" />
     </key>
   </component>
   <component name="RunDashboard">

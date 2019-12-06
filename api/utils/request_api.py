@@ -35,8 +35,11 @@ def save_log(log_str):
     now = datetime.datetime.now(cst_tz)
     date = now.strftime("%Y-%m-%d")
     date_time = now.strftime("%Y-%m-%d %H:%M:%S")
+    cache_path = os.path.join(settings.BASE_DIR, 'cache/')
     log_path = os.path.join(settings.BASE_DIR, 'cache/log/')
     log_last = ''
+    if not os.path.exists(cache_path):
+        os.mkdir(cache_path)
     if not os.path.exists(log_path):
         os.mkdir(log_path)
     elif os.path.exists(log_path + date + '.log'):
@@ -50,18 +53,19 @@ def save_log(log_str):
 def save_backup(*args):
     now = datetime.datetime.now(cst_tz)
     date_time = now.strftime("%Y%m%d%H%M%S")
+    cache_path = os.path.join(settings.BASE_DIR, 'cache/')
     backup_path = os.path.join(settings.BASE_DIR, 'cache/backup/')
-    # 读取文件
-    file_paths = list_dirs(backup_path)
-    file_paths.sort()
-    file_paths.reverse()
-    i = 0
-    for file_path in file_paths:
-        if i > 2:
-            os.remove(file_path)
-        i += 1
+    if os.path.exists(backup_path):
+        # 读取文件
+        file_paths = list_dirs(backup_path)
+        file_paths.sort()
+        file_paths.reverse()
+        if len(file_paths) > 2:
+            os.remove(file_paths[-1])
 
     backup_str = ''
+    if not os.path.exists(cache_path):
+        os.mkdir(cache_path)
     if not os.path.exists(backup_path):
         os.mkdir(backup_path)
     for arg in args:

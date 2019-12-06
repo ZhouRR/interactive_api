@@ -119,20 +119,23 @@ def handle_upload_file(uploaded_file):
 
 def get_backup(backup_file_type):
     backup_path = os.path.join(settings.BASE_DIR, 'cache/backup/')
-    # 读取文件
-    file_paths = request_api.list_dirs(backup_path)
-    file_paths.sort()
-    if backup_file_type == 'earliest':
-        backup_path = file_paths[0]
-    elif backup_file_type == 'earlier':
-        backup_path = file_paths[1]
-    elif backup_file_type == 'recent':
-        backup_path = file_paths[2]
 
     try:
+        # 读取文件
+        file_paths = request_api.list_dirs(backup_path)
+        file_paths.sort()
+        if backup_file_type == 'earliest':
+            backup_path = file_paths[0]
+        elif backup_file_type == 'earlier' and len(file_paths) > 2:
+            backup_path = file_paths[1]
+        elif backup_file_type == 'recent':
+            backup_path = file_paths[-1]
         with open(backup_path, 'r', encoding='utf-8', errors='ignore') as fp:
             backup_str = fp.read()
     except FileNotFoundError as e:
+        request_api.log(e)
+        return None
+    except IsADirectoryError as e:
         request_api.log(e)
         return None
     return json.loads(backup_str)
