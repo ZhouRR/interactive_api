@@ -49,10 +49,24 @@
                     content.push(el);
                 }
                 let width = 120;
-                if(len > 28 && len <= 60){
-                    width = 71;
-                }else if(len > 60){
-                    width = 41;
+                switch(Math.floor(len/28)) {
+                    case 1:
+                        width = 80;
+                        break;
+                    case 2:
+                        width = 58;
+                        break;
+                    case 3:
+                        width = 48;
+                        break;
+                    case 4:
+                        width = 39;
+                        break;
+                    case 5:
+                        width = 35;
+                        break;
+                    default:
+                        width = 120;
                 }
                 $.lottery({
                     el: '.lottery-box',

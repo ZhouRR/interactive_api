@@ -67,3 +67,8 @@ function scrollBar(obj) {
     return $("body").scrollTop()>0;
     obj.scrollTop(0);
 }
+
+function timing(timestamp) {
+    console.log($.now()-timestamp_ + ' ms');
+    timestamp = $.now();
+}
