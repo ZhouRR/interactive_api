@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e7d68aff-9aa9-49c1-b777-d4c3e0d7ac65" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/static/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/static/common.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/static/lottery.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/static/lottery.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/templates/lottery.html" beforeDir="false" afterPath="$PROJECT_DIR$/api/templates/lottery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/views/lottery_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/views/lottery_views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

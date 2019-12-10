@@ -106,7 +106,7 @@ class LotteryViewSet(viewsets.ModelViewSet):
         for activity in update_serializer.data:
             update_from_data = Activity.objects.get(activity_id=activity['activity_id'])
             update_to_serializer = ActivitySerializer(update_from_data)
-            if update_from_data.activity_id == '000':
+            if update_from_data.activity_id == '001':
                 prize = update_from_data.prize
             if update_from_data.activity_id == '002':
                 update_from_data.processing = True
