@@ -40,7 +40,7 @@ urlpatterns = [
 # url路由器
 urlpatterns += [
     url(r'^interactive_api/', include(router.urls)),
-    url(r'^interactive_api/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    # url(r'^interactive_api/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     deploy_static_url(),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

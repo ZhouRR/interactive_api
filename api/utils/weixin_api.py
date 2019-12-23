@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from django.conf import settings
-import json
-import urllib.parse
 
 from . import request_api
 
