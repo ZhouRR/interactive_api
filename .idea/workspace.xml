@@ -3,10 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="e7d68aff-9aa9-49c1-b777-d4c3e0d7ac65" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/templates/lottery.html" beforeDir="false" afterPath="$PROJECT_DIR$/api/templates/lottery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/templates/processing_staff.html" beforeDir="false" afterPath="$PROJECT_DIR$/api/templates/processing_staff.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/views/lottery_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/views/lottery_views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/views/processing_staff_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/views/processing_staff_views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/templates/staffs.html" beforeDir="false" afterPath="$PROJECT_DIR$/api/templates/staffs.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/backup/20191223161145.bak" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/backup/20191223161407.bak" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/backup/20191223163324.bak" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/backup/20191223165422.bak" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/log/2019-12-30.log" beforeDir="false" afterPath="$PROJECT_DIR$/cache/log/2019-12-30.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

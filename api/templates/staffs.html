@@ -159,6 +159,7 @@
                 let bseLen = 0;
                 let winningLen = 0;
                 let winningBSELen = 0;
+                let winningList = "中奖名单: ";
                 let times1 = 0;
                 let times2 = 0;
                 let times3 = 0;
@@ -178,6 +179,10 @@
                         if(data[i].is_bse){
                             winningBSELen++;
                         }
+                        if((i+1)%4 == 0){
+                            winningList += '\n';
+                        }
+                        winningList += data[i].name + ", ";
                     }
                     if(data[i].times == 1){
                         times1++;
@@ -211,6 +216,8 @@
                 outputContent += '剩余1次BSE人数: ' + times1Bse + '人, ';
                 outputContent += '剩余2次BSE人数: ' + times2Bse + '人, ';
                 outputContent += '剩余3次BSE人数: ' + times3Bse + '人.';
+                outputContent += '\n';
+                outputContent += winningList;
                 $("#output").html(outputContent);
                 $("#staff-clear-select").append(content);
             })
