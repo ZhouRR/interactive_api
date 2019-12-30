@@ -110,6 +110,19 @@ class ProcessingStaffViewSet(viewsets.ModelViewSet):
 
                     self.send_processing_message()
                     return Response({request.data[self.primary_key]}, status=status.HTTP_200_OK)
+                # 添加参与过投票未中奖的员工
+                elif 'staff_id' in request.data and request.data['staff_id'] == '999995':
+                    staffs = Staff.objects.filter(is_bse=False, winning=False, times__lt=3)
+                    staffs_serializer = StaffSerializer(staffs, many=True)
+                    serializer = self.get_serializer(self.model_class.objects.all(), data=staffs_serializer.data,
+                                                     many=True)
+                    try:
+                        serializer.is_valid(raise_exception=True)
+                        self.perform_update(serializer)
+                    except ValidationError as exc:
+                        request_api.log(exc)
+                    self.send_processing_message()
+                    return Response({request.data[self.primary_key]}, status=status.HTTP_200_OK)
             except self.model_class.MultipleObjectsReturned as e:
                 request_api.log('data MultipleObjectsReturned')
 

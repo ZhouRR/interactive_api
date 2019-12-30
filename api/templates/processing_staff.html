@@ -72,6 +72,7 @@
                                                 <option value="999998">全部(未中奖)</option>
                                                 <option value="999997">全部BSE(未中奖)</option>
                                                 <option value="999996" selected="selected">随机BSE(未中奖)</option>
+                                                <option value="999995">已参加过投票(不含BSE)</option>
                                             </select>
                                         </div>
                                     </div>
@@ -265,6 +266,7 @@
                 $("#output").html(outputContent);
                 $("#staff-clear-select").append(content);
                 $("#staff-winning-select").empty();
+                content = content.replace('全部', '添加投票次数');
                 if(len <= 10){
                     $("#staff-winning-select").append(content);
                 }

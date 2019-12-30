@@ -42,8 +42,28 @@ class LotteryViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(queryset, many=True)
         data = None
 
+        # 添加投票次数
+        if 'staff_id' in request.data and request.data['staff_id'] == '-999999':
+            processing_queryset = ProcessingStaff.objects.all()
+            processing_staff_mapping = \
+                {processing_staff.staff_id: processing_staff for processing_staff in processing_queryset}
+            staffs = Staff.objects.filter(is_bse=False, winning=False, times__lt=3,
+                                          staff_id__in=processing_staff_mapping)
+            # 加剩余次数
+            for staff in staffs:
+                staff.times += 1
+            staffs_serializer = StaffSerializer(staffs, many=True)
+            serializer = StaffSerializer(staffs, data=staffs_serializer.data, many=True)
+            try:
+                serializer.is_valid(raise_exception=True)
+                self.perform_update(serializer)
+            except ValidationError as exc:
+                request_api.log(exc)
+            self.perform_destroy(processing_queryset)
+            request_api.send_long_message({'activity': '001'})
+            return Response(serializer.data, status=status.HTTP_200_OK)
         # 中奖员工
-        if 'staff_id' in request.data:
+        elif 'staff_id' in request.data:
             # 将当前奖品移出奖池
             prize_serializer = None
             prize = None
