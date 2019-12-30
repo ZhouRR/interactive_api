@@ -179,7 +179,7 @@
                         if(data[i].is_bse){
                             winningBSELen++;
                         }
-                        if((i+1)%4 == 0){
+                        if(winningLen%8 == 0){
                             winningList += '\n';
                         }
                         winningList += data[i].name + ", ";
