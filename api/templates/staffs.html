@@ -166,6 +166,7 @@
                 let times1Bse = 0;
                 let times2Bse = 0;
                 let times3Bse = 0;
+                let loginLen = 0;
                 for(var i=0;i<len;i++){
                     <!--outputContent += 'id: ' + data[i].staff_id + ',姓名: '+ data[i].name + ' ' + ',是否BSE: '+ data[i].is_bse + ' ';-->
                     <!--if((i+1)%4 == 0){-->
@@ -202,6 +203,9 @@
                             times3Bse++;
                         }
                     }
+                    if(data[i].avatar != ""){
+                        loginLen++;
+                    }
                     content += '<option value="' + data[i].staff_id + '" >'+ data[i].name +'</option>';
                 }
                 outputContent += 'BSE人数: ' + bseLen + '人. ';
@@ -216,6 +220,8 @@
                 outputContent += '剩余1次BSE人数: ' + times1Bse + '人, ';
                 outputContent += '剩余2次BSE人数: ' + times2Bse + '人, ';
                 outputContent += '剩余3次BSE人数: ' + times3Bse + '人.';
+                outputContent += '\n';
+                outputContent += '已经登录人数: ' + loginLen + '人.';
                 outputContent += '\n';
                 outputContent += winningList;
                 $("#output").html(outputContent);
