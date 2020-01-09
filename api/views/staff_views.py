@@ -180,9 +180,9 @@ class StaffViewSet(viewsets.ModelViewSet):
         try:
             prize_data = Prize.objects.get(prize_id=staff.prize)
             staff.prize = prize_data.prize_name
-        except self.model_class.DoesNotExist as e:
+        except Prize.DoesNotExist as e:
             request_api.log('no prize')
-        except self.model_class.MultipleObjectsReturned as e:
+        except Prize.MultipleObjectsReturned as e:
             request_api.log('more than 1 prize')
         return staff
 
